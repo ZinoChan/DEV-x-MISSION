@@ -9,9 +9,7 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": [
-    "@typescript-eslint"
-  ],
+  "plugins": ["@typescript-eslint"],
   "rules": {
     "tailwindcss/no-custom-classname": "warn",
     "@typescript-eslint/strict-boolean-expressions": [
@@ -31,11 +29,7 @@
   ],
   "overrides": [
     {
-      "files": [
-        "*.ts",
-        "*.tsx",
-        "*.js"
-      ],
+      "files": ["*.ts", "*.tsx", "*.js"],
       "parser": "@typescript-eslint/parser",
       "excludedFiles": "prettier.config.js"
     }

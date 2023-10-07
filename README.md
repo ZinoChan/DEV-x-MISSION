@@ -1,6 +1,6 @@
 # DEV x MISSION 🚀
 
-Welcome to DEV x MISSION, an exciting Next.js  platform where to share project ideas, seek partners, and receive peer feedback 🌟
+Welcome to DEV x MISSION, an exciting Next.js platform where to share project ideas, seek partners, and receive peer feedback 🌟
 
 ## Features
 
@@ -19,17 +19,20 @@ Welcome to DEV x MISSION, an exciting Next.js  platform where to share project i
 Follow these steps to get DEV x MISSION up and running on your local machine:
 
 1. Clone the repository:
+
 ```bash
    git clone https://github.com/yourusername/dev-x-mission.git
 ```
 
 2. install dependencies
+
 ```bash
 cd dev-x-mission
 npm install
 ```
 
 3. run the applicaiton
+
 ```bash
 npm run dev
 ```

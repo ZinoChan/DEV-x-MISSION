@@ -21,7 +21,7 @@ Follow these steps to get DEV x MISSION up and running on your local machine:
 1. Clone the repository:
 
 ```bash
-   git clone https://github.com/yourusername/dev-x-mission.git
+git clone https://github.com/ZinoChan/DEV-x-MISSION
 ```
 
 2. install dependencies

@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "prettier:write": "prettier --write .",
+    "prettier:check": "prettier --check .",
     "test": "jest",
     "test:w": "jest --watch",
     "test:ci": "jest --ci",

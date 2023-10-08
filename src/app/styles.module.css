@@ -1,0 +1,4 @@
+.home_title_astric::before {
+  content: url(../assets/astric.svg);
+  height: 36px;
+}

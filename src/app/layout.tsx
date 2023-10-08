@@ -1,3 +1,4 @@
+import NavBar from '@/shared/Navbar';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Bebas_Neue, Inter } from 'next/font/google';
@@ -21,7 +22,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={`${inter.variable} ${bebas.variable}`}>{children}</body>
+      <body className={`bg-light-1 ${inter.variable} ${bebas.variable}`}>
+        <NavBar />
+        <main>{children}</main>
+      </body>
     </html>
   );
 }

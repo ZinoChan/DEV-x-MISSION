@@ -17,8 +17,10 @@
   "dependencies": {
     "hamburger-react": "^2.5.0",
     "next": "13.5.4",
+    "next-auth": "^4.23.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-icons": "^4.11.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.3",

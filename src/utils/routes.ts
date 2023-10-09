@@ -3,4 +3,5 @@ export const ROUTES = {
   MISSIONS: '/missions',
   BLOG: '/blog',
   REGISTER: '/signup',
+  USER_DASHBOARD: '/user-dashboard',
 };

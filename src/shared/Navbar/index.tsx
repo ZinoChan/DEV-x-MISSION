@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Twirl as Hamburger } from 'hamburger-react';
 import { ROUTES } from '@/utils/routes';
+import { SignInButton } from '../Button';
 
 type Route = {
   name: string;
@@ -17,11 +18,7 @@ const routes: Route[] = [
 const AuthLinks = () => {
   return (
     <div className='flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-3 md:space-y-0'>
-      <Link href={ROUTES.REGISTER}>
-        <button className='w-full rounded-lg border-2 bg-primary-1 px-4 py-2 text-center text-sm font-bold text-dark-1 hover:bg-primary-1/90 hover:shadow-md hover:shadow-primary-1 md:w-auto'>
-          Register
-        </button>
-      </Link>
+      <SignInButton />
     </div>
   );
 };

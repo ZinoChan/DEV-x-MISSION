@@ -2,6 +2,7 @@ import NavBar from '@/shared/Navbar';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Bebas_Neue, Inter } from 'next/font/google';
+import AuthProvider from '@/utils/AuthProvider';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' });
 const bebas = Bebas_Neue({
@@ -21,11 +22,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <body className={`bg-light-1 ${inter.variable} ${bebas.variable}`}>
-        <NavBar />
-        <main>{children}</main>
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang='en'>
+        <body className={`bg-light-1 ${inter.variable} ${bebas.variable}`}>
+          <NavBar />
+          <main>{children}</main>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

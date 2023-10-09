@@ -16,10 +16,13 @@ const config: Config = {
         'secondary-3': '#A577F2',
         'light-1': '#F4F6F0',
         'light-2': '#FDFFFA',
+        'light-3': '#fffffe',
+        'light-4': '#F9FAF7',
         'gray-1': '#EBEBEB',
         'gray-2': '#D5D5D5',
         'gray-3': '#969696',
         'gray-4': '#6A706E',
+        'gray-5': '#CDCDCD',
         'dark-1': '#0E0E0E',
       },
       fontFamily: {

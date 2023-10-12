@@ -16,7 +16,7 @@ h6 {
 }
 
 .prose {
-  padding: 20px;
+  padding: 20px 0;
   line-height: 1.6;
   margin: 0;
 }
@@ -121,6 +121,6 @@ h6 {
 
 .prose hr {
   border: none;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #e6e5e5;
   margin: 20px 0;
 }

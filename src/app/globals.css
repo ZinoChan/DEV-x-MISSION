@@ -14,3 +14,113 @@ h5,
 h6 {
   @apply font-main;
 }
+
+.prose {
+  padding: 20px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.prose h1 {
+  @apply font-body;
+  font-weight: 600;
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.prose h2 {
+  @apply font-body;
+  font-size: 24px;
+  font-weight: 600;
+  color: #444;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+.prose h3 {
+  @apply font-body;
+  font-size: 20px;
+  font-weight: 600;
+  color: #555;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply font-body;
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+.prose p {
+  margin: 0 0 20px;
+}
+
+.prose a {
+  color: #0078d4;
+  text-decoration: none;
+}
+
+.prose a:hover {
+  text-decoration: underline;
+}
+
+.prose ul,
+.prose ol {
+  margin: 0 0 20px 20px;
+}
+
+.prose pre {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border: 1px solid #ccc;
+  overflow-x: auto;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.prose code {
+  font-family: Consolas, Monaco, monospace;
+  background-color: #f4f4f4;
+  padding: 3px 5px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.prose blockquote {
+  border-left: 4px solid #ccc;
+  padding: 10px;
+  margin: 0 0 20px;
+  background-color: #f9f9f9;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+.prose table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.prose th,
+.prose td {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+.prose hr {
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 20px 0;
+}

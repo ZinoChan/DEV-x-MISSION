@@ -3,6 +3,8 @@ import home_img from '@/assets/home-img.svg';
 import styles from './styles.module.css';
 import star_1 from '@/assets/star_1.svg';
 import star_2 from '@/assets/star_2.svg';
+import Link from 'next/link';
+import { ROUTES } from '@/utils/routes';
 
 export default function Home() {
   return (
@@ -26,9 +28,12 @@ export default function Home() {
               wrrite legendary stories together. Your mission, should you choose
               to accept it, begins here.
             </p>
-            <button className='rounded bg-primary-1 px-5 py-2.5 text-center text-sm font-bold text-dark-1 shadow-md shadow-primary-1 hover:bg-primary-1/90'>
+            <Link
+              href={ROUTES.MISSIONS}
+              className='rounded bg-primary-1 px-5 py-2.5 text-center text-sm font-bold text-dark-1 shadow-md shadow-primary-1 hover:bg-primary-1/90'
+            >
               Get Started
-            </button>
+            </Link>
           </div>
           <div className='relative hidden justify-end lg:flex '>
             <Image

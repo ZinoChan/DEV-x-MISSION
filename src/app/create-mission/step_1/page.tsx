@@ -7,6 +7,7 @@ import SelectInput from '@/shared/SelectInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { create_mission_schema_1 } from '@/utils/validation/mission_validation';
 import { Step_1_FormValues } from '@/types/mission.types';
+import { useRouter } from 'next/navigation';
 
 const initialValues = {
   missionName: '',
@@ -17,6 +18,7 @@ const initialValues = {
 };
 
 const CreateMissionStep_1 = () => {
+  const router = useRouter();
   const {
     handleSubmit,
     control,
@@ -29,6 +31,7 @@ const CreateMissionStep_1 = () => {
 
   const onSubmit = (data: Step_1_FormValues) => {
     console.log(data);
+    router.push(ROUTES.CREATE_MISSION_STEP_2);
   };
 
   return (

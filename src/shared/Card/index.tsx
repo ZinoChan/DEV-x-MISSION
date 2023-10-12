@@ -5,6 +5,7 @@ import {
   BsFillBarChartFill,
 } from 'react-icons/bs';
 import { BiUpvote } from 'react-icons/bi';
+import Link from 'next/link';
 
 const MissionCard = () => {
   return (
@@ -13,9 +14,12 @@ const MissionCard = () => {
         <div className='flex h-16 w-20 items-center justify-center rounded bg-secondary-3 text-3xl'>
           <BsCodeSlash />
         </div>
-        <h3 className='text-4xl tracking-wider text-dark-1'>
+        <Link
+          href='/missions/mission-slug'
+          className='font-main text-4xl tracking-wider text-dark-1'
+        >
           E-commerce cart consturction
-        </h3>
+        </Link>
       </div>
       <div className='mb-4'>
         <span className='inline-flex items-center space-x-1 rounded border-2 border-yellow-400 text-sm'>

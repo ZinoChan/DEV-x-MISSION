@@ -30,3 +30,64 @@ export const projectTypes = [
   'UX/UI Design',
 ];
 export const projectStatus = ['Ideation', 'Prototype', 'Development'];
+
+export const fakeMission = `
+## 🎯 Mission Objective:
+  ------------
+  The mission objective is to establish a sustainable colony on Mars by the year 2030. This will involve a series of exploratory and logistical tasks to ensure the success of the mission.
+
+## 📋 Mission Brief:
+  ------------
+  The mission brief outlines the key details of the Mars colonization project:
+  - Launch Date: March 15, 2029
+  - Duration: 24 months
+  - Crew Members: 12 astronauts
+  - Primary Location: Valles Marineris
+  - Objectives:
+    1. Establish a habitat with life support systems.
+    2. Conduct scientific research on Martian geology and climate.
+    3. Test and develop in-situ resource utilization technologies.
+
+## 🔍 Key Tasks:
+  ------------
+  The following are the key tasks to be completed during the mission:
+  1. Landing and Habitat Setup
+  2. Life Support System Deployment
+  3. Resource Exploration and Utilization
+  4. Scientific Experiments
+  5. Communication Infrastructure Establishment
+  6. Sustainable Agriculture
+  7. Crew Health and Safety Management
+  8. Emergency Protocols
+  9. Return Mission Planning
+
+## 🛠 Tools & Technologies Recommended:
+  ------------
+  To accomplish the mission, the following tools and technologies are recommended:
+  - SpaceX Starship spacecraft
+  - Mars habitat modules
+  - Advanced life support systems
+  - Mars rovers for exploration
+  - Solar power generation
+  - 3D printing technology
+  - Communication satellites
+  - Remote sensing equipment
+
+## 🤝 Collaboration Details:
+  ------------
+  Collaboration with various international space agencies and scientific institutions is crucial for the mission's success. Key partners include:
+  - NASA
+  - ESA (European Space Agency)
+  - Roscosmos
+  - SpaceX
+  - University research teams
+
+## 🔗 Additional Resources:
+  ------------
+  For additional information and resources related to the mission, refer to the following:
+  - [NASA Mars Exploration Program](https://mars.nasa.gov/)
+  - [SpaceX Mars Mission Updates](https://www.spacex.com/mars/)
+  - [ESA Mars Exploration](https://www.esa.int/Science_Exploration/Space_Science/Mars_Express)
+
+
+`;

@@ -30,9 +30,11 @@ const NavBar: React.FC = () => {
     <nav className='relative'>
       <div className='mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4'>
         <Link href={ROUTES.HOME}>
-          <h2 className='font-main text-4xl font-bold text-dark-1'>
-            dev x mission
-          </h2>
+          <div className='flex items-start'>
+            <h2 className='text-4xl font-bold text-dark-1'>dev</h2>
+            <span className='text-2xl font-bold'>x</span>
+            <h2 className='text-4xl font-bold text-dark-1'>mission</h2>
+          </div>
         </Link>
         <div className='md:hidden'>
           <Hamburger toggled={isOpen} toggle={setOpen} />

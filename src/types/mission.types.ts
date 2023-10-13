@@ -15,3 +15,8 @@ export type SkillRequiredOptions = {
   value: string;
   label: string;
 };
+
+export type CommunityLink = {
+  name: string;
+  id: string;
+};

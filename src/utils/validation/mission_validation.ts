@@ -35,3 +35,23 @@ export const create_mission_schema_2 = yup.object().shape({
     .min(1, 'At least one skill is required')
     .required('At least one skill is required'),
 });
+
+export const create_mission_schema_3 = yup
+  .object()
+  .test(
+    'at-least-one-key-with-value',
+    'At least one key must have a non-empty value',
+    function (obj: { [key: string]: string }) {
+      for (const key in obj) {
+        if (
+          obj.hasOwnProperty(key) &&
+          obj[key] !== '' &&
+          obj[key] !== null &&
+          obj[key] !== undefined
+        ) {
+          return true;
+        }
+      }
+      return false;
+    }
+  );

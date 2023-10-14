@@ -20,3 +20,7 @@ export type CommunityLink = {
   name: string;
   id: string;
 };
+
+export type Step_3_FormValues = {
+  [k: string]: string;
+};

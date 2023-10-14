@@ -8,7 +8,7 @@ type Props = {
 
 const PreviewMd = ({ markdown, setPreviewOpen }: Props) => {
   return (
-    <div className='fixed inset-0 z-20 h-screen w-screen overflow-y-scroll bg-light-2'>
+    <div className='fixed inset-0 z-20 h-screen w-screen  bg-light-2'>
       <div className='mx-auto max-w-screen-md py-10'>
         <button
           onClick={() => setPreviewOpen(false)}
@@ -16,7 +16,7 @@ const PreviewMd = ({ markdown, setPreviewOpen }: Props) => {
         >
           <AiOutlineClose />
         </button>
-        <div className='prose mx-auto max-h-[80vh] max-w-screen-md overflow-y-scroll'>
+        <div className='prose mx-auto max-h-[80vh] max-w-screen-md overflow-y-auto'>
           <Markdown>{markdown}</Markdown>
         </div>
         <div className='mt-10 flex justify-end'>

@@ -30,7 +30,7 @@ export default function Home() {
             </p>
             <Link
               href={ROUTES.MISSIONS}
-              className='rounded bg-primary-1 px-5 py-2.5 text-center text-sm font-bold text-dark-1 shadow-md shadow-primary-1 hover:bg-primary-1/90'
+              className='rounded bg-primary-1 px-5 py-2.5 text-center text-sm font-bold text-dark-1 shadow-md shadow-primary-1/50 transition-all hover:bg-primary-1/90 hover:shadow-lg focus:ring focus:ring-lime-400'
             >
               Get Started
             </Link>

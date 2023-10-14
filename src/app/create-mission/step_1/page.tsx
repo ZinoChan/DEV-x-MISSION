@@ -1,21 +1,13 @@
 'use client';
-import { useForm, Controller } from 'react-hook-form';
-import { projectTypes, skillLevels, projectStatus } from '@/data';
+import { useForm } from 'react-hook-form';
 import BackBtn from '@/shared/BackBtn';
 import { ROUTES } from '@/utils/routes';
-import SelectInput from '@/shared/SelectInput';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { create_mission_schema_1 } from '@/utils/validation/mission_validation';
 import { Step_1_FormValues } from '@/types/mission.types';
 import { useRouter } from 'next/navigation';
-
-const initialValues = {
-  missionName: '',
-  skillLevel: '',
-  projectType: '',
-  status: '',
-  missionObjective: '',
-};
+import Mission_Step_1 from '@/shared/Forms/Mission_Step_1';
+import { initialValues_1 } from '@/data';
 
 const CreateMissionStep_1 = () => {
   const router = useRouter();
@@ -25,7 +17,7 @@ const CreateMissionStep_1 = () => {
     formState: { isDirty, isValid, errors },
   } = useForm<Step_1_FormValues>({
     mode: 'onChange',
-    defaultValues: initialValues,
+    defaultValues: initialValues_1,
     resolver: yupResolver(create_mission_schema_1),
   });
 
@@ -45,78 +37,7 @@ const CreateMissionStep_1 = () => {
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='mb-4 grid grid-cols-1 gap-4 gap-y-5 rounded bg-light-2 p-8 shadow-md sm:grid-cols-2 md:gap-x-10'>
-          <div>
-            <label
-              htmlFor='mission-name'
-              className='mb-2 block text-sm font-medium text-dark-1'
-            >
-              Mission Name:
-            </label>
-            <Controller
-              name='missionName'
-              control={control}
-              render={({ field }) => (
-                <input
-                  id='mission-name'
-                  type='text'
-                  placeholder='Top-Secret Spy Mission Name'
-                  className='block w-full border border-gray-5 bg-white p-2.5 text-sm text-dark-1 outline-none focus:border-primary-1 focus:ring-primary-1'
-                  {...field}
-                />
-              )}
-            />
-            {errors['missionName'] && (
-              <span className='text-sm text-red-500'>
-                {errors['missionName'].message}
-              </span>
-            )}
-          </div>
-          <SelectInput
-            label='Skill Level'
-            options={skillLevels}
-            name='skillLevel'
-            control={control}
-            error={errors['skillLevel']}
-          />
-          <SelectInput
-            label='Project Type'
-            options={projectTypes}
-            name='projectType'
-            control={control}
-            error={errors['projectType']}
-          />
-          <SelectInput
-            label='Status'
-            options={projectStatus}
-            name='projectStatus'
-            control={control}
-            error={errors['projectStatus']}
-          />
-          <div className='sm:col-span-2'>
-            <label
-              htmlFor='mission-objective'
-              className='mb-2 block text-sm font-medium text-dark-1'
-            >
-              Mission Objective:
-            </label>
-            <Controller
-              name='missionObjective'
-              control={control}
-              render={({ field }) => (
-                <textarea
-                  id='mission-objective'
-                  className='block w-full border border-gray-5 bg-white p-2.5 text-sm text-dark-1 outline-none focus:border-primary-1 focus:ring-primary-1'
-                  rows={6}
-                  {...field}
-                ></textarea>
-              )}
-            />
-            {errors['missionObjective'] && (
-              <span className='text-sm text-red-500'>
-                {errors['missionObjective'].message}
-              </span>
-            )}
-          </div>
+          <Mission_Step_1 control={control} errors={errors} />
         </div>
         <div className='flex items-center justify-end space-x-2'>
           <button

@@ -1,9 +1,11 @@
+import { FC } from 'react';
+
 type Props = {
   label: string;
   options: string[];
 };
 
-const SelectInput = ({ label, options }: Props) => {
+const SelectInput: FC<Props> = ({ label, options }) => {
   return (
     <div>
       <label

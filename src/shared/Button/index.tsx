@@ -2,9 +2,9 @@
 
 import { ROUTES } from '@/utils/routes';
 import { useSession, signIn, signOut } from 'next-auth/react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
+import { Avatar } from '../Avatar';
 
 export function SignInButton() {
   const { data: session, status } = useSession();
@@ -43,17 +43,11 @@ export function SignInButton() {
         className='relative cursor-pointer'
       >
         <div className='flex items-center space-x-2'>
-          {session.user?.image != null ? (
-            <Image
-              src={session.user?.image}
-              width={32}
-              height={32}
-              className='rounded-full'
-              alt={session.user?.name != null ? session.user?.name : 'user'}
-            />
-          ) : (
-            <div className='h-8 w-8 rounded-full bg-gray-1'></div>
-          )}
+          <Avatar
+            size='sm'
+            src={session.user?.image}
+            alt={session.user?.name}
+          />
         </div>
         <div
           className={`absolute right-0 top-full z-10 translate-y-2 rounded bg-light-2 transition-all duration-150 ease-linear ${
@@ -63,7 +57,7 @@ export function SignInButton() {
           <ul className='flex flex-col items-center'>
             <li className='border-b border-gray-1 px-6 py-4 text-sm font-medium text-gray-4 hover:bg-lime-50'>
               <button>
-                <Link href={ROUTES.USER_DASHBOARD}>Dashboard</Link>
+                <Link href={ROUTES.USER_PROFILE}>Dashboard</Link>
               </button>
             </li>
             <li className='w-full px-6 py-4 text-center text-sm font-medium text-gray-4 hover:bg-lime-50'>

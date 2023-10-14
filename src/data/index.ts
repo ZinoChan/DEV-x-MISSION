@@ -1,3 +1,5 @@
+import { ROUTES } from '@/utils/routes';
+
 export const initialMarkdown = `## 🎯 Mission Objective:
   ------------
 
@@ -97,4 +99,9 @@ export const communityLinks = [
   { id: 'f2cc0489-1424-4aae-9e76-732f99d4d83f', name: 'Slack', url: '' },
   { id: '52e6f726-12d1-4b9c-85d6-4edbf8082e0e', name: 'Whatsup', url: '' },
   { id: '88d1d330-5077-4e41-b8a9-94e77443be17', name: 'Figma', url: '' },
+];
+
+export const profileLinks = [
+  { label: 'missions', route: ROUTES.USER_PROFILE },
+  { label: 'stats', route: ROUTES.USER_STATS },
 ];

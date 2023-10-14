@@ -105,3 +105,16 @@ export const profileLinks = [
   { label: 'missions', route: ROUTES.USER_PROFILE },
   { label: 'stats', route: ROUTES.USER_STATS },
 ];
+
+export const initialValues_1 = {
+  missionName: '',
+  skillLevel: '',
+  projectType: '',
+  projectStatus: '',
+  missionObjective: '',
+};
+
+export const initialValues_2 = {
+  skillRequired: [],
+  missionDetails: '',
+};

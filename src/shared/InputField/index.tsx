@@ -20,7 +20,7 @@ const InputField = <TFieldValues extends FieldValues>({
     <div>
       <label
         htmlFor={name}
-        className='mb-2 block text-sm font-medium text-dark-1'
+        className='mb-2 block text-sm font-medium capitalize text-dark-1'
       >
         {label}:
       </label>

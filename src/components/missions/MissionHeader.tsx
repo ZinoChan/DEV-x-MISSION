@@ -15,7 +15,7 @@ const MissionHeader = () => {
         <div className='mb-10 flex items-center justify-between'>
           <Link
             href={ROUTES.CREATE_MISSION_STEP_1}
-            className='flex items-center space-x-2 rounded bg-primary-1 px-5 py-2.5 text-center text-sm font-bold capitalize text-dark-1 shadow-md shadow-primary-1 hover:bg-primary-1/90'
+            className='flex items-center space-x-2 rounded bg-primary-1 px-5 py-2.5 text-center text-sm font-bold capitalize text-dark-1 shadow-md shadow-primary-1/50 transition-all hover:bg-primary-1/90 hover:shadow-lg focus:ring focus:ring-lime-400'
           >
             <span>create mission</span>
             <AiOutlinePlusCircle className='text-xl' />

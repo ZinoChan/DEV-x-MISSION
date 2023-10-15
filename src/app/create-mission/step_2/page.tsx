@@ -7,12 +7,14 @@ import { Step_2_FormValues } from '@/types/mission.types';
 import { ROUTES } from '@/utils/routes';
 import { create_mission_schema_2 } from '@/utils/validation/mission_validation';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const CreateMissionStep_2 = () => {
   const [markdown, setMarkdown] = useState('');
   const [isPreviewOpen, setPreviewOpen] = useState(false);
+  const router = useRouter();
 
   const {
     handleSubmit,
@@ -31,6 +33,7 @@ const CreateMissionStep_2 = () => {
       skillRequired: skillValues,
     };
     console.log(formData);
+    router.push(ROUTES.CREATE_MISSION_STEP_3);
   };
 
   return (
@@ -38,7 +41,7 @@ const CreateMissionStep_2 = () => {
       <div className={`${isPreviewOpen ? 'flex' : 'hidden'}`}>
         <PreviewMd markdown={markdown} setPreviewOpen={setPreviewOpen} />
       </div>
-      <BackBtn link={ROUTES.CREATE_MISSION_STEP_1} />
+      <BackBtn link={ROUTES.MISSIONS} />
       <div className='mb-10 text-center'>
         <h1 className='mb-3 text-5xl text-dark-1 sm:text-6xl'>
           mission #1: Anime recommendation app
@@ -54,7 +57,14 @@ const CreateMissionStep_2 = () => {
           />
         </div>
         <div className='flex items-center justify-end space-x-2'>
-          <button className='rounded border-2 border-primary-1 px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all hover:bg-primary-1/90'>
+          <button
+            type='button'
+            className={`rounded border-2 px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all ${
+              isDirty && isValid
+                ? 'border-primary-1 hover:bg-primary-1/90'
+                : 'cursor-not-allowed border-gray-5 text-gray-3'
+            }`}
+          >
             Save Draft
           </button>
           <button
@@ -66,9 +76,9 @@ const CreateMissionStep_2 = () => {
           </button>
           <button
             type='submit'
-            className={`rounded border-2 px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all ${
+            className={`rounded border-2  px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all ${
               isDirty && isValid
-                ? 'border-primary-1 hover:bg-primary-1/90'
+                ? 'bg-primary-1 shadow-primary-1/50 transition-all hover:bg-primary-1/90  hover:shadow-lg focus:ring focus:ring-lime-400'
                 : 'cursor-not-allowed border-gray-5 text-gray-3'
             }`}
           >

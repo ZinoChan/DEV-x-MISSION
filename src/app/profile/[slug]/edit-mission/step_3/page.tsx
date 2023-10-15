@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { create_mission_schema_3 } from '@/utils/validation/mission_validation';
 import Mission_Step_3 from '@/shared/Forms/Mission_Step_3';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const CreateMissionStep_3 = () => {
   const [isAddLinkOpen, setAddLinkOpen] = useState(false);
@@ -25,6 +26,7 @@ const CreateMissionStep_3 = () => {
   });
   const onSubmit = (data: Step_3_FormValues) => {
     console.log(data);
+    toast.success('mission edit successfully');
     router.push(ROUTES.USER_PROFILE);
   };
   return (

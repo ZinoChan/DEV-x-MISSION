@@ -24,10 +24,10 @@ export const create_mission_schema_2 = yup.object().shape({
     .required('Mission Details is required')
     .test(
       'wordCount',
-      'Mission Details must contain between 7 and 250 words',
+      'Mission Details must contain between 7 and 2500 words',
       (value) => {
         const wordCount = value.trim().split(/\s+/).length;
-        return wordCount >= 7 && wordCount <= 250;
+        return wordCount >= 7 && wordCount <= 2500;
       }
     ),
   skillRequired: yup

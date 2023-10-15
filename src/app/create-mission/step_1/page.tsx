@@ -41,7 +41,7 @@ const CreateMissionStep_1 = () => {
         </div>
         <div className='flex items-center justify-end space-x-2'>
           <button
-            type='submit'
+            type='button'
             className={`rounded border-2 px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all ${
               isDirty && isValid
                 ? 'border-primary-1 hover:bg-primary-1/90'
@@ -52,7 +52,11 @@ const CreateMissionStep_1 = () => {
           </button>
           <button
             type='submit'
-            className='rounded border-2 bg-primary-1 px-4 py-2 text-center text-sm font-bold text-dark-1 shadow-sm shadow-primary-1/50 hover:bg-primary-1/70 md:w-auto'
+            className={`rounded border-2  px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all ${
+              isDirty && isValid
+                ? 'bg-primary-1 shadow-primary-1/50 transition-all hover:bg-primary-1/90  hover:shadow-lg focus:ring focus:ring-lime-400'
+                : 'cursor-not-allowed border-gray-5 text-gray-3'
+            }`}
           >
             Next Step
           </button>

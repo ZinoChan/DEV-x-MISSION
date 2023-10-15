@@ -6,9 +6,10 @@ import Markdown from 'react-markdown';
 type Props = {
   reactionBtns?: boolean;
   editBtns?: boolean;
+  mission_slug?: string;
 };
 
-const Post = ({ reactionBtns, editBtns }: Props) => {
+const Post = ({ reactionBtns, editBtns, mission_slug }: Props) => {
   return (
     <div>
       <h1 className='my-6 text-3xl tracking-wider md:text-6xl'>
@@ -31,7 +32,9 @@ const Post = ({ reactionBtns, editBtns }: Props) => {
           <p className='text-xs font-medium'>2 minutes read</p>
         </div>
         {(reactionBtns ?? false) && <ReactionBtns />}
-        {(editBtns ?? false) && <EditBtns />}
+        {(editBtns ?? false) && mission_slug != null ? (
+          <EditBtns mission_slug={mission_slug} />
+        ) : null}
       </div>
       <div className='prose mb-6'>
         <Markdown>{fakeMission}</Markdown>

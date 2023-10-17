@@ -14,7 +14,8 @@ interface Props {
 export default async function CreateMissionStep_2({ params }: Props) {
   const session = await getServerSession(authOptions);
 
-  if (!session) redirect('/api/auth/signin');
+  if (!session)
+    redirect(`/api/auth/signin?callbackUrl=${ROUTES.CREATE_MISSION_STEP_1}`);
   const currentUserEmail = session?.user?.email;
 
   if (currentUserEmail == null) return null;

@@ -6,8 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 // NextAuth Schema
@@ -84,10 +85,10 @@ model SkillRequired {
 
 model Mission {
   id               String          @id @default(cuid())
-  title            String
+  missionName      String
   missionStatus    String
   missionType      String
-  published        Boolean
+  published        Boolean         @default(false)
   skillLevel       String
   missionObjective String          @db.Text
   communityLinks   CommunityLink[]

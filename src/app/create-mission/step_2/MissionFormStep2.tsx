@@ -10,8 +10,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Mission } from '@prisma/client';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import { getErrorMessage } from '@/utils/ErrHandling/GetErrMsg';
+import LoadingOverlay from '@/shared/LoadingOverlay';
 
-const CreateMissionStep_2 = () => {
+type MutationData = {
+  missionDetails: string;
+  skillRequired: string[];
+};
+
+const MissionFormStep2 = ({ mission }: { mission: Mission }) => {
   const [markdown, setMarkdown] = useState('');
   const [isPreviewOpen, setPreviewOpen] = useState(false);
   const router = useRouter();
@@ -26,29 +36,42 @@ const CreateMissionStep_2 = () => {
     resolver: yupResolver(create_mission_schema_2),
   });
 
+  const mutation = useMutation({
+    mutationFn: (updateMission: MutationData) => {
+      return axios.put(`/api/missions/${mission.id}`, updateMission);
+    },
+    onSuccess: (resData) =>
+      router.push(`${ROUTES.CREATE_MISSION_STEP_3}/${resData.data.mission.id}`),
+  });
+
   const onSubmit = (data: Step_2_FormValues) => {
     const skillValues = data.skillRequired.map((item) => item.value);
     const formData = {
       ...data,
       skillRequired: skillValues,
     };
-    console.log(formData);
-    router.push(ROUTES.CREATE_MISSION_STEP_3);
+    mutation.mutate(formData);
   };
 
   return (
     <section className='mx-auto max-w-screen-md px-2 py-16'>
+      {mutation.isLoading && <LoadingOverlay />}
       <div className={`${isPreviewOpen ? 'flex' : 'hidden'}`}>
         <PreviewMd markdown={markdown} setPreviewOpen={setPreviewOpen} />
       </div>
       <BackBtn link={ROUTES.MISSIONS} />
       <div className='mb-10 text-center'>
         <h1 className='mb-3 text-5xl text-dark-1 sm:text-6xl'>
-          mission #1: Anime recommendation app
+          mission: {mission.missionName}
         </h1>
-        <p className='text-sm text-gray-4'>web development</p>
+        <p className='text-sm text-gray-4'>{mission.missionType}</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
+        {mutation.isError ? (
+          <div className='mb-2 rounded  border-2 border-red-500 bg-red-200 p-6 text-center text-red-500'>
+            {getErrorMessage(mutation.error)}
+          </div>
+        ) : null}
         <div className='mb-4 rounded bg-light-2 p-8 shadow-md'>
           <Mission_Step_2
             errors={errors}
@@ -90,4 +113,4 @@ const CreateMissionStep_2 = () => {
   );
 };
 
-export default CreateMissionStep_2;
+export default MissionFormStep2;

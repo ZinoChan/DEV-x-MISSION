@@ -10,9 +10,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { create_mission_schema_3 } from '@/utils/validation/mission_validation';
 import Mission_Step_3 from '@/shared/Forms/Mission_Step_3';
 import { useRouter } from 'next/navigation';
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
 import toast from 'react-hot-toast';
+import LoadingOverlay from '@/shared/LoadingOverlay';
 
-const CreateMissionStep_3 = () => {
+const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
   const router = useRouter();
   const [isAddLinkOpen, setAddLinkOpen] = useState(false);
   const [community_links, setCommunityLinks] =
@@ -25,13 +28,26 @@ const CreateMissionStep_3 = () => {
     defaultValues: {},
     resolver: yupResolver(create_mission_schema_3),
   });
+
+  const mutaion = useMutation({
+    mutationFn: (updateMission: Step_3_FormValues) => {
+      return axios.put(`/api/missions/${missionId}`, updateMission);
+    },
+    onSuccess: (resData) => {
+      if (resData.data.mission.published == true)
+        toast.success('Mission Published');
+      if (resData.data.mission.published != true)
+        toast('Mission saved as discard', { icon: '⚠️' });
+      router.push(ROUTES.USER_PROFILE);
+    },
+  });
+
   const onSubmit = (data: Step_3_FormValues) => {
-    toast.success('Mission Published Successfully');
-    console.log(data);
-    router.push(ROUTES.USER_PROFILE);
+    mutaion.mutate(data);
   };
   return (
     <section className='mx-auto max-w-screen-md px-2 py-16'>
+      {mutaion.isLoading && <LoadingOverlay />}
       <BackBtn link={ROUTES.MISSIONS} />
       <div className='mb-10 text-center'>
         <h1 className='mb-3 text-5xl text-dark-1 sm:text-6xl'>
@@ -85,4 +101,4 @@ const CreateMissionStep_3 = () => {
   );
 };
 
-export default CreateMissionStep_3;
+export default MissionFormStep3;

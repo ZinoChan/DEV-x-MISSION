@@ -28,18 +28,18 @@ const Mission_Step_1 = ({ control, errors }: Props) => {
         error={errors && errors['skillLevel']}
       />
       <SelectInput
-        label='Project Type'
+        label='Mission Type'
         options={projectTypes}
-        name='projectType'
+        name='missionType'
         control={control}
-        error={errors && errors['projectType']}
+        error={errors && errors['missionType']}
       />
       <SelectInput
         label='Status'
         options={projectStatus}
-        name='projectStatus'
+        name='missionStatus'
         control={control}
-        error={errors && errors['projectStatus']}
+        error={errors && errors['missionStatus']}
       />
       <div className='sm:col-span-2'>
         <TextareaField

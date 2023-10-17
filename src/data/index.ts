@@ -109,8 +109,8 @@ export const profileLinks = [
 export const initialValues_1 = {
   missionName: '',
   skillLevel: skillLevels[0],
-  projectType: projectTypes[0],
-  projectStatus: projectStatus[0],
+  missionType: projectTypes[0],
+  missionStatus: projectStatus[0],
   missionObjective: '',
 };
 

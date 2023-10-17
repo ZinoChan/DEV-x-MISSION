@@ -1,8 +1,8 @@
 export type Step_1_FormValues = {
   missionName: string;
   skillLevel: string;
-  projectType: string;
-  projectStatus: string;
+  missionType: string;
+  missionStatus: string;
   missionObjective: string;
 };
 

@@ -3,8 +3,8 @@ import * as yup from 'yup';
 export const create_mission_schema_1 = yup.object().shape({
   missionName: yup.string().required('Mission Name is required'),
   skillLevel: yup.string().required('Skill Level is required'),
-  projectType: yup.string().required('Project Type is required'),
-  projectStatus: yup.string().required('Status is required'),
+  missionType: yup.string().required('Project Type is required'),
+  missionStatus: yup.string().required('Status is required'),
   missionObjective: yup
     .string()
     .required('Mission Objective is required')

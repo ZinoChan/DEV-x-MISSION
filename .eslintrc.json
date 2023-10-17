@@ -4,12 +4,13 @@
     "next/core-web-vitals",
     "plugin:@typescript-eslint/recommended",
     "plugin:tailwindcss/recommended",
-    "prettier"
+    "prettier",
+    "plugin:@tanstack/eslint-plugin-query/recommended"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "@tanstack/query"],
   "rules": {
     "tailwindcss/no-custom-classname": "warn",
     "@typescript-eslint/strict-boolean-expressions": [
@@ -18,7 +19,10 @@
         "allowString": false,
         "allowNumber": false
       }
-    ]
+    ],
+    "@tanstack/query/exhaustive-deps": "error",
+    "@tanstack/query/prefer-query-object-syntax": "error",
+    "@tanstack/query/stable-query-client": "error"
   },
   "ignorePatterns": [
     "**/*.test.ts",

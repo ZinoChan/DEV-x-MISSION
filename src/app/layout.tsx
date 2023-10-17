@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { Bebas_Neue, Inter } from 'next/font/google';
 import AuthProvider from '@/utils/AuthProvider';
 import { Toaster } from 'react-hot-toast';
+import QueryProvider from '@/utils/ReactQuery/QueryProvider';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' });
 const bebas = Bebas_Neue({
@@ -25,11 +26,13 @@ export default function RootLayout({
   return (
     <AuthProvider>
       <html lang='en'>
-        <body className={`bg-light-1 ${inter.variable} ${bebas.variable}`}>
-          <NavBar />
-          <main>{children}</main>
-          <Toaster />
-        </body>
+        <QueryProvider>
+          <body className={`bg-light-1 ${inter.variable} ${bebas.variable}`}>
+            <NavBar />
+            <main>{children}</main>
+            <Toaster />
+          </body>
+        </QueryProvider>
       </html>
     </AuthProvider>
   );

@@ -1,51 +1,70 @@
 'use client';
-import { useForm } from 'react-hook-form';
+import PreviewMd from '@/components/missions/PreviewMd';
+import { initialValues_2 } from '@/data';
 import BackBtn from '@/shared/BackBtn';
+import Mission_Step_2 from '@/shared/Forms/Mission_Step_2';
+import { Step_2_FormValues } from '@/types/mission.types';
 import { ROUTES } from '@/utils/routes';
+import { create_mission_schema_2 } from '@/utils/validation/mission_validation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { create_mission_schema_1 } from '@/utils/validation/mission_validation';
-import { Step_1_FormValues } from '@/types/mission.types';
 import { useRouter } from 'next/navigation';
-import Mission_Step_1 from '@/shared/Forms/Mission_Step_1';
-import { initialValues_1 } from '@/data';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { Mission } from '@prisma/client';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { getErrorMessage } from '@/utils/ErrHandling/GetErrMsg';
 import LoadingOverlay from '@/shared/LoadingOverlay';
 
-const MissionFormStep1 = () => {
+type MutationData = {
+  missionDetails: string;
+  skillRequired: string[];
+};
+
+const MissionFormStep2 = ({ mission }: { mission: Mission }) => {
+  const [markdown, setMarkdown] = useState('');
+  const [isPreviewOpen, setPreviewOpen] = useState(false);
   const router = useRouter();
+
   const {
     handleSubmit,
     control,
     formState: { isDirty, isValid, errors },
-  } = useForm<Step_1_FormValues>({
+  } = useForm<Step_2_FormValues>({
     mode: 'onChange',
-    defaultValues: initialValues_1,
-    resolver: yupResolver(create_mission_schema_1),
+    defaultValues: initialValues_2,
+    resolver: yupResolver(create_mission_schema_2),
   });
 
   const mutation = useMutation({
-    mutationFn: (newMission: Step_1_FormValues) => {
-      return axios.post('/api/missions', newMission);
+    mutationFn: (updateMission: MutationData) => {
+      return axios.put(`/api/missions/${mission.id}`, updateMission);
     },
     onSuccess: (resData) =>
-      router.push(`${ROUTES.CREATE_MISSION_STEP_2}/${resData.data.mission.id}`),
+      router.push(`${ROUTES.CREATE_MISSION_STEP_3}/${resData.data.mission.id}`),
   });
 
-  const onSubmit = async (data: Step_1_FormValues) => {
-    mutation.mutate(data);
+  const onSubmit = (data: Step_2_FormValues) => {
+    const skillValues = data.skillRequired.map((item) => item.value);
+    const formData = {
+      ...data,
+      skillRequired: skillValues,
+    };
+    mutation.mutate(formData);
   };
 
   return (
     <section className='mx-auto max-w-screen-md px-2 py-16'>
       {mutation.isLoading && <LoadingOverlay />}
+      <div className={`${isPreviewOpen ? 'flex' : 'hidden'}`}>
+        <PreviewMd markdown={markdown} setPreviewOpen={setPreviewOpen} />
+      </div>
       <BackBtn link={ROUTES.MISSIONS} />
       <div className='mb-10 text-center'>
         <h1 className='mb-3 text-5xl text-dark-1 sm:text-6xl'>
-          create your mission
+          mission: {mission.missionName}
         </h1>
-        <p className='text-sm text-gray-4'>start building something amazing</p>
+        <p className='text-sm text-gray-4'>{mission.missionType}</p>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
         {mutation.isError ? (
@@ -53,8 +72,12 @@ const MissionFormStep1 = () => {
             {getErrorMessage(mutation.error)}
           </div>
         ) : null}
-        <div className='mb-4 grid grid-cols-1 gap-4 gap-y-5 rounded bg-light-2 p-8 shadow-md sm:grid-cols-2 md:gap-x-10'>
-          <Mission_Step_1 control={control} errors={errors} />
+        <div className='mb-4 rounded bg-light-2 p-8 shadow-md'>
+          <Mission_Step_2
+            errors={errors}
+            control={control}
+            setMarkdown={setMarkdown}
+          />
         </div>
         <div className='flex items-center justify-end space-x-2'>
           <button
@@ -66,6 +89,13 @@ const MissionFormStep1 = () => {
             }`}
           >
             Save Draft
+          </button>
+          <button
+            type='button'
+            onClick={() => setPreviewOpen(!isPreviewOpen)}
+            className='rounded border-2 border-primary-1 px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all hover:bg-primary-1/90'
+          >
+            Preview
           </button>
           <button
             type='submit'
@@ -83,4 +113,4 @@ const MissionFormStep1 = () => {
   );
 };
 
-export default MissionFormStep1;
+export default MissionFormStep2;

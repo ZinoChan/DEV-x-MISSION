@@ -1,3 +1,5 @@
+import { Mission } from '@prisma/client';
+
 export type Step_1_FormValues = {
   missionName: string;
   skillLevel: string;
@@ -22,5 +24,9 @@ export type CommunityLink = {
 };
 
 export type Step_3_FormValues = {
-  [k: string]: string;
+  [k: string]: string | boolean;
 };
+
+export interface MissionRes {
+  mission: Mission;
+}

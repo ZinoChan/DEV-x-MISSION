@@ -5,23 +5,33 @@ import BackBtn from '@/shared/BackBtn';
 import { ROUTES } from '@/utils/routes';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { CommunityLink, Step_3_FormValues } from '@/types/mission.types';
+import {
+  CommunityLink,
+  MissionRes,
+  Step_3_FormValues,
+} from '@/types/mission.types';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { create_mission_schema_3 } from '@/utils/validation/mission_validation';
 import Mission_Step_3 from '@/shared/Forms/Mission_Step_3';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import toast from 'react-hot-toast';
 import LoadingOverlay from '@/shared/LoadingOverlay';
+import { DraftBtn, SubmitBtn } from '@/shared/Button/MissionBtns';
+import { httpRequest } from '@/utils/HttpRequest';
+import { MISSIONS_ENDPOINT } from '@/constants/apiEndpoints';
 
 const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
   const router = useRouter();
   const [isAddLinkOpen, setAddLinkOpen] = useState(false);
+  const [isRedirecting, setRedirecting] = useState(false);
+  const [isSaveDraft, setSaveAsDraft] = useState(false);
   const [community_links, setCommunityLinks] =
     useState<CommunityLink[]>(communityLinks);
+
   const {
     handleSubmit,
+    trigger,
     formState: { isDirty, isValid, errors },
     register,
   } = useForm<Step_3_FormValues>({
@@ -31,22 +41,41 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
 
   const mutaion = useMutation({
     mutationFn: (updateMission: Step_3_FormValues) => {
-      return axios.put(`/api/missions/${missionId}`, updateMission);
+      return httpRequest<MissionRes>(
+        'put',
+        `${MISSIONS_ENDPOINT}/${missionId}`,
+        updateMission
+      );
     },
-    onSuccess: (resData) => {
-      if (resData.data.mission.published == true)
-        toast.success('Mission Published');
-      if (resData.data.mission.published != true)
-        toast('Mission saved as discard', { icon: '⚠️' });
-      router.push(ROUTES.USER_PROFILE);
+    onSuccess: (data) => {
+      if (isSaveDraft) {
+        router.push(ROUTES.USER_PROFILE), toast.success('Changes Saved!');
+        setRedirecting(true);
+      } else {
+        if (data.mission.published == true) toast.success('Mission Published');
+        if (data.mission.published != true)
+          toast('Mission saved as draft', { icon: '⚠️' });
+        router.push(ROUTES.USER_PROFILE);
+        setRedirecting(true);
+      }
     },
   });
 
   const onSubmit = (data: Step_3_FormValues) => {
-    mutaion.mutate(data);
+    if (isSaveDraft) mutaion.mutate(data);
+    else mutaion.mutate({ ...data, published: true });
   };
+  const saveAsDraft = async () => {
+    const isValidValues = await trigger();
+    if (isValidValues) {
+      setSaveAsDraft(true);
+      handleSubmit(onSubmit)();
+    }
+  };
+
   return (
     <section className='mx-auto max-w-screen-md px-2 py-16'>
+      {isRedirecting && <LoadingOverlay />}
       {mutaion.isLoading && <LoadingOverlay />}
       <BackBtn link={ROUTES.MISSIONS} />
       <div className='mb-10 text-center'>
@@ -75,26 +104,13 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
           />
         </div>
         <div className='flex items-center justify-end space-x-2'>
-          <button
-            type='button'
-            className={`rounded border-2 px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all ${
-              isDirty && isValid
-                ? 'border-primary-1 hover:bg-primary-1/90'
-                : 'cursor-not-allowed border-gray-5 text-gray-3'
-            }`}
-          >
-            Save Draft
-          </button>
-          <button
-            type='submit'
-            className={`rounded border-2  px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all ${
-              isDirty && isValid
-                ? 'bg-primary-1 shadow-primary-1/50 transition-all hover:bg-primary-1/90  hover:shadow-lg focus:ring focus:ring-lime-400'
-                : 'cursor-not-allowed border-gray-5 text-gray-3'
-            }`}
-          >
-            Publish
-          </button>
+          <DraftBtn
+            saveAsDraft={saveAsDraft}
+            isDirty={isDirty}
+            isValid={isValid}
+            label='save draft'
+          />
+          <SubmitBtn isDirty={isDirty} isValid={isValid} label='publish' />
         </div>
       </form>
     </section>

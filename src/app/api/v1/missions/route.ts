@@ -4,27 +4,30 @@ import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { handleErrMsg } from '@/utils/ErrHandling/HandleErr';
 import { xprisma } from '@/lib/prismaExtentions';
+import { HttpException } from '@/utils/ErrHandling/HttpException';
+import { HTTP_STATUS } from '@/constants/httpStatus';
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
   const currentUserEmail = session?.user?.email;
 
-  if (currentUserEmail == null) throw Error('user email does not exist');
-
-  const user = await xprisma.user.findByEmail(currentUserEmail);
-  if (user === null) throw Error('user does not exists');
-  const data = await req.json();
-
   try {
+    if (currentUserEmail == null)
+      throw new HttpException(
+        HTTP_STATUS.NOT_FOUND,
+        'user email does not exist'
+      );
+
+    const user = await xprisma.user.findByEmail(currentUserEmail);
+    if (user === null)
+      throw new HttpException(HTTP_STATUS.NOT_FOUND, 'user does not exists');
+    const data = await req.json();
     const mission = await prisma.mission.create({
       data: { ...data, userId: user.id },
     });
     return NextResponse.json({ mission }, { status: 201 });
   } catch (error) {
-    const errMsg = handleErrMsg(error);
-    return NextResponse.json(
-      { success: false, message: errMsg },
-      { status: 500 }
-    );
+    const { status, message } = handleErrMsg(error);
+    return NextResponse.json({ success: false, message, status }, { status });
   }
 }

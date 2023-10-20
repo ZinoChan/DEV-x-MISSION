@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Twirl as Hamburger } from 'hamburger-react';
 import { ROUTES } from '@/utils/routes';
-import { SignInButton } from '../Button';
+import { SignInButton } from '../Button/AuthBtns';
 
 type Route = {
   name: string;

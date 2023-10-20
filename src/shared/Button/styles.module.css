@@ -1,0 +1,19 @@
+.btn {
+  @apply rounded px-4 py-2 text-sm font-bold capitalize;
+}
+
+.btn_primary_1 {
+  @apply cursor-pointer bg-primary-1 text-dark-1 shadow-primary-1/50 transition-all  hover:bg-primary-1/90  hover:shadow-lg focus:ring focus:ring-lime-400;
+}
+
+.btn_primary_outline_1 {
+  @apply cursor-pointer border-2 border-primary-1 text-dark-1 transition-all  hover:bg-primary-1/90  hover:shadow-lg focus:ring focus:ring-lime-400;
+}
+
+.btn_disabled {
+  @apply cursor-not-allowed border-2 border-gray-5 text-gray-3;
+}
+
+.btn_danger {
+  @apply cursor-pointer bg-red-500 text-white shadow-red-300 transition-all  hover:bg-red-400  hover:shadow-lg focus:ring focus:ring-red-600;
+}

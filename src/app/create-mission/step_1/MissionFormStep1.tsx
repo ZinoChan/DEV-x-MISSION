@@ -4,19 +4,26 @@ import BackBtn from '@/shared/BackBtn';
 import { ROUTES } from '@/utils/routes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { create_mission_schema_1 } from '@/utils/validation/mission_validation';
-import { Step_1_FormValues } from '@/types/mission.types';
+import { MissionRes, Step_1_FormValues } from '@/types/mission.types';
 import { useRouter } from 'next/navigation';
 import Mission_Step_1 from '@/shared/Forms/Mission_Step_1';
 import { initialValues_1 } from '@/data';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
 import { getErrorMessage } from '@/utils/ErrHandling/GetErrMsg';
 import LoadingOverlay from '@/shared/LoadingOverlay';
+import { httpRequest } from '@/utils/HttpRequest';
+import { MISSIONS_ENDPOINT } from '@/constants/apiEndpoints';
+import { DraftBtn, SubmitBtn } from '@/shared/Button/MissionBtns';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 const MissionFormStep1 = () => {
   const router = useRouter();
+  const [isRedirecting, setRedirecting] = useState(false);
+  const [isSaveDraft, setSaveAsDraft] = useState(false);
   const {
     handleSubmit,
+    trigger,
     control,
     formState: { isDirty, isValid, errors },
   } = useForm<Step_1_FormValues>({
@@ -27,18 +34,38 @@ const MissionFormStep1 = () => {
 
   const mutation = useMutation({
     mutationFn: (newMission: Step_1_FormValues) => {
-      return axios.post('/api/missions', newMission);
+      return httpRequest<MissionRes>('post', MISSIONS_ENDPOINT, newMission);
     },
-    onSuccess: (resData) =>
-      router.push(`${ROUTES.CREATE_MISSION_STEP_2}/${resData.data.mission.id}`),
+    onSuccess: (data) => {
+      if (isSaveDraft) {
+        router.push(ROUTES.USER_PROFILE), toast.success('Changes Saved!');
+        setRedirecting(true);
+      } else {
+        router.push(`${ROUTES.CREATE_MISSION_STEP_2}/${data.mission.id}`),
+          toast.success('Step 1 Complete!');
+        setRedirecting(true);
+        toast('Moving on to Step 2', {
+          icon: '🔀',
+        });
+      }
+    },
   });
 
-  const onSubmit = async (data: Step_1_FormValues) => {
+  const onSubmit = (data: Step_1_FormValues) => {
     mutation.mutate(data);
+  };
+
+  const saveAsDraft = async () => {
+    const isValidValues = await trigger();
+    if (isValidValues) {
+      setSaveAsDraft(true);
+      handleSubmit(onSubmit)();
+    }
   };
 
   return (
     <section className='mx-auto max-w-screen-md px-2 py-16'>
+      {isRedirecting && <LoadingOverlay />}
       {mutation.isLoading && <LoadingOverlay />}
       <BackBtn link={ROUTES.MISSIONS} />
       <div className='mb-10 text-center'>
@@ -57,26 +84,13 @@ const MissionFormStep1 = () => {
           <Mission_Step_1 control={control} errors={errors} />
         </div>
         <div className='flex items-center justify-end space-x-2'>
-          <button
-            type='button'
-            className={`rounded border-2 px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all ${
-              isDirty && isValid
-                ? 'border-primary-1 hover:bg-primary-1/90'
-                : 'cursor-not-allowed border-gray-5 text-gray-3'
-            }`}
-          >
-            Save Draft
-          </button>
-          <button
-            type='submit'
-            className={`rounded border-2  px-4 py-2 text-center text-sm font-bold text-dark-1 transition-all ${
-              isDirty && isValid
-                ? 'bg-primary-1 shadow-primary-1/50 transition-all hover:bg-primary-1/90  hover:shadow-lg focus:ring focus:ring-lime-400'
-                : 'cursor-not-allowed border-gray-5 text-gray-3'
-            }`}
-          >
-            Next Step
-          </button>
+          <DraftBtn
+            saveAsDraft={saveAsDraft}
+            isDirty={isDirty}
+            isValid={isValid}
+            label='save draft'
+          />
+          <SubmitBtn isDirty={isDirty} isValid={isValid} label='next step' />
         </div>
       </form>
     </section>

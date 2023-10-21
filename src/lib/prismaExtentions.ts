@@ -26,6 +26,18 @@ export const xprisma = prisma.$extends({
               : null
           );
       },
+      async getUserMissions(userId: string) {
+        return prisma.mission.findMany({
+          where: {
+            userId,
+          },
+          select: {
+            id: true,
+            missionName: true,
+            published: true,
+          },
+        });
+      },
     },
   },
 });

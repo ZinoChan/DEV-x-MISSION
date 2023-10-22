@@ -1,18 +1,18 @@
+import { HTTP_STATUS } from '@/constants/httpStatus';
 import { prisma } from '@/lib/prisma';
+import { xprisma } from '@/lib/prismaExtentions';
 import { authOptions } from '@/utils/AuthOptions';
+import { handleErrMsg } from '@/utils/ErrHandling/HandleErr';
+import { HttpException } from '@/utils/ErrHandling/HttpException';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { handleErrMsg } from '@/utils/ErrHandling/HandleErr';
-import { xprisma } from '@/lib/prismaExtentions';
 import { Mission } from '@prisma/client';
-import { HttpException } from '@/utils/ErrHandling/HttpException';
-import { HTTP_STATUS } from '@/constants/httpStatus';
 
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: { missionId: string } }
 ) {
-  const missionId = params.id;
+  const { missionId } = params;
   const session = await getServerSession(authOptions);
   const currentUserEmail = session?.user?.email;
 

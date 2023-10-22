@@ -19,7 +19,7 @@ import toast from 'react-hot-toast';
 import LoadingOverlay from '@/shared/LoadingOverlay';
 import { DraftBtn, SubmitBtn } from '@/shared/Button/MissionBtns';
 import { httpRequest } from '@/utils/HttpRequest';
-import { MISSIONS_ENDPOINT } from '@/constants/apiEndpoints';
+import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 
 const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
   const router = useRouter();
@@ -43,7 +43,7 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
     mutationFn: (updateMission: Step_3_FormValues) => {
       return httpRequest<MissionRes>(
         'put',
-        `${MISSIONS_ENDPOINT}/${missionId}`,
+        `${USER_ENDPOINT}/missions/${missionId}`,
         updateMission
       );
     },

@@ -12,7 +12,7 @@ import { useMutation } from '@tanstack/react-query';
 import { getErrorMessage } from '@/utils/ErrHandling/GetErrMsg';
 import LoadingOverlay from '@/shared/LoadingOverlay';
 import { httpRequest } from '@/utils/HttpRequest';
-import { MISSIONS_ENDPOINT } from '@/constants/apiEndpoints';
+import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 import { DraftBtn, SubmitBtn } from '@/shared/Button/MissionBtns';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -34,7 +34,11 @@ const MissionFormStep1 = () => {
 
   const mutation = useMutation({
     mutationFn: (newMission: Step_1_FormValues) => {
-      return httpRequest<MissionRes>('post', MISSIONS_ENDPOINT, newMission);
+      return httpRequest<MissionRes>(
+        'post',
+        `${USER_ENDPOINT}/missions`,
+        newMission
+      );
     },
     onSuccess: (data) => {
       if (isSaveDraft) {

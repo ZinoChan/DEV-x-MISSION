@@ -35,6 +35,8 @@ export const xprisma = prisma.$extends({
             id: true,
             missionName: true,
             published: true,
+            createAt: true,
+            missionOrder: true,
           },
         });
       },

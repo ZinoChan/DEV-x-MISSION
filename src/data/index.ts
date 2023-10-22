@@ -118,3 +118,10 @@ export const initialValues_2 = {
   skillRequired: [],
   missionDetails: '',
 };
+
+export const userMissionFilter = [
+  { label: 'Newest', value: 'new' },
+  { label: 'Draft', value: 'draft' },
+  { label: 'Published', value: 'published' },
+  { label: 'By number', value: 'number' },
+];

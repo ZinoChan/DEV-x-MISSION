@@ -100,6 +100,9 @@ model Mission {
   votes            Vote[]
   SavedMission     SavedMission[]
   comments         Comment[]
+  createAt         DateTime        @default(now())
+  updateAt         DateTime        @updatedAt
+  missionOrder     Int             @default(autoincrement())
 }
 
 model Like {
@@ -127,12 +130,14 @@ model SavedMission {
 }
 
 model Comment {
-  id        String  @id @default(cuid())
+  id        String   @id @default(cuid())
   userId    String
   missionId String
-  user      User    @relation(fields: [userId], references: [id])
-  mission   Mission @relation(fields: [missionId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+  mission   Mission  @relation(fields: [missionId], references: [id])
   content   String
+  createAt  DateTime @default(now())
+  updateAt  DateTime @updatedAt
 }
 
 model Follows {

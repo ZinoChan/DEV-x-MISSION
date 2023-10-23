@@ -41,3 +41,7 @@ export interface TUserMission {
   createAt: string;
   missionOrder: number;
 }
+
+export type PrismaUserMission = Omit<TUserMission, 'createAt'> & {
+  createAt: Date;
+};

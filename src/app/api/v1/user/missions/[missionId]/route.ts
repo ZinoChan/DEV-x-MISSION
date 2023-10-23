@@ -1,12 +1,9 @@
 import { HTTP_STATUS } from '@/constants/httpStatus';
-import { prisma } from '@/lib/prisma';
-import { xprisma } from '@/lib/prismaExtentions';
 import { authOptions } from '@/utils/AuthOptions';
 import { handleErrMsg } from '@/utils/ErrHandling/HandleErr';
-import { HttpException } from '@/utils/ErrHandling/HttpException';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { Mission } from '@prisma/client';
+import { deleteMission, updateMission } from '../mission.service';
 
 export async function PUT(
   req: Request,
@@ -17,78 +14,27 @@ export async function PUT(
   const currentUserEmail = session?.user?.email;
 
   try {
-    if (currentUserEmail == null)
-      throw new HttpException(
-        HTTP_STATUS.NOT_FOUND,
-        'user email does not exist'
-      );
-
-    const user = await xprisma.user.findByEmail(currentUserEmail);
-    if (user === null)
-      throw new HttpException(HTTP_STATUS.NOT_FOUND, 'user does not exists');
-
-    const missionExists = await xprisma.mission.findMissionById(missionId);
-    if (missionExists == null)
-      throw new HttpException(HTTP_STATUS.NOT_FOUND, 'mission not found');
-
-    const data = await req.json();
-
-    const updateData = {} as Mission;
-    if (data.missionName != null) {
-      updateData.missionName = data.missionName;
-    }
-    if (data.missionStatus != null) {
-      updateData.missionStatus = data.missionStatus;
-    }
-    if (data.missionType != null) {
-      updateData.missionType = data.missionType;
-    }
-    if (data.skillLevel != null) {
-      updateData.skillLevel = data.skillLevel;
-    }
-    if (data.missionObjective != null) {
-      updateData.missionObjective = data.missionObjective;
-    }
-
-    if (data.missionDetails != null) {
-      updateData.missionDetails = data.missionDetails;
-    }
-
-    if (data.skillRequired != null) {
-      for (const skillName of data.skillRequired) {
-        await prisma.skillRequired.create({
-          data: {
-            name: skillName,
-            mission: { connect: { id: missionId } },
-          },
-        });
-      }
-    }
-    if (data.communityLinks != null) {
-      for (const link of data.communityLinks) {
-        await prisma.communityLink.create({
-          data: {
-            linkName: link.name,
-            linkUrl: link.url,
-            mission: { connect: { id: missionId } },
-          },
-        });
-      }
-    }
-    if (data.published == true) {
-      const allFieldsAreField =
-        await xprisma.mission.areAllFieldsFilled(missionId);
-      if (allFieldsAreField == true) updateData.published = true;
-    }
-    const mission = await prisma.mission.update({
-      where: {
-        id: missionId,
-      },
-      data: updateData,
-    });
-    return NextResponse.json({ mission }, { status: 201 });
+    const mission = await updateMission(req, missionId, currentUserEmail);
+    return NextResponse.json({ mission }, { status: HTTP_STATUS.OK });
   } catch (error) {
     const { message, status } = handleErrMsg(error);
     return NextResponse.json({ success: false, message }, { status });
+  }
+}
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: { missionId: string } }
+) {
+  const { missionId } = params;
+  const session = await getServerSession(authOptions);
+  const currentUserEmail = session?.user?.email;
+
+  try {
+    const deletedMission = await deleteMission(missionId, currentUserEmail);
+    return NextResponse.json({ mission: deletedMission });
+  } catch (error) {
+    const { status, message } = handleErrMsg(error);
+    return NextResponse.json({ success: false, message, status }, { status });
   }
 }

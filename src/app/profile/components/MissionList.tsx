@@ -35,6 +35,7 @@ const MissionList = () => {
   });
 
   const [filteredMissions, setFilteredMissions] = useState<TUserMission[]>([]);
+  const [filterId, setFilterId] = useState<string | null>(null);
 
   const handleFilterChange = (selectedOption: selectOption | null) => {
     setSelectedFilter(selectedOption ? selectedOption.value : null);
@@ -44,6 +45,16 @@ const MissionList = () => {
       filterMissions(data?.userMissions || [], selectedFilter)
     );
   }, [data, selectedFilter]);
+
+  useEffect(() => {
+    if (filterId != null) {
+      const filterDeleted = filteredMissions.filter(
+        ({ id }) => id !== filterId
+      );
+      setFilteredMissions(filterDeleted);
+      setFilterId(null);
+    }
+  }, [filterId, filteredMissions]);
 
   return (
     <section className='pb-6'>
@@ -82,6 +93,7 @@ const MissionList = () => {
         {filteredMissions.length > 0 &&
           filteredMissions.map(({ missionName, id, published }) => (
             <UserMission
+              setFilterId={setFilterId}
               key={id}
               missionName={missionName}
               published={published}

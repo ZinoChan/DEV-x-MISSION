@@ -7,13 +7,14 @@ type Props = {
   missionName: string;
   id: string;
   published: boolean;
+  setFilterId?: (id: string) => void;
 };
 
-const UserMission = ({ missionName, id, published }: Props) => {
+const UserMission = ({ missionName, id, published, setFilterId }: Props) => {
   return (
     <div className='relative flex min-h-[220px] items-center justify-center rounded border border-gray-2 bg-gradient-to-b from-[#F4F6F0] to-[#eee] p-8 text-center shadow'>
       <div className='absolute right-4 top-4'>
-        <EditBtns mission_slug={id} />
+        <EditBtns setFilterId={setFilterId} missionId={id} />
       </div>
       <div className='absolute left-4 top-4 text-2xl'>
         <div className='group relative'>

@@ -103,6 +103,7 @@ model Mission {
   createAt         DateTime        @default(now())
   updateAt         DateTime        @updatedAt
   missionOrder     Int             @default(autoincrement())
+  archived         Boolean         @default(false)
 }
 
 model Like {

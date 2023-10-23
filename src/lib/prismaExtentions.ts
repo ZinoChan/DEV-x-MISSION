@@ -30,6 +30,7 @@ export const xprisma = prisma.$extends({
         return prisma.mission.findMany({
           where: {
             userId,
+            archived: false,
           },
           select: {
             id: true,

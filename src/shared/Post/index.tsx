@@ -33,7 +33,7 @@ const Post = ({ reactionBtns, editBtns, mission_slug }: Props) => {
         </div>
         {(reactionBtns ?? false) && <ReactionBtns />}
         {(editBtns ?? false) && mission_slug != null ? (
-          <EditBtns mission_slug={mission_slug} />
+          <EditBtns missionId={mission_slug} />
         ) : null}
       </div>
       <div className='prose mb-6'>

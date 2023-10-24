@@ -2,9 +2,16 @@ import MissionHeader from '@/components/missions/MissionHeader';
 import { xprisma } from '@/lib/prismaExtentions';
 import MissionCard from '@/shared/Card';
 import Container from '@/shared/Container';
+import { cache } from 'react';
 
-export default async function Missions() {
+export const revalidate = 3600;
+
+export const getMissions = cache(async () => {
   const missions = await xprisma.mission.getMissions();
+  return missions;
+});
+export default async function Missions() {
+  const missions = await getMissions();
   return (
     <section className='py-16'>
       <MissionHeader />

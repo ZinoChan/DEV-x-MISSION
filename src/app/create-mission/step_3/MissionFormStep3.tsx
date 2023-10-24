@@ -40,7 +40,7 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
   });
 
   const mutaion = useMutation({
-    mutationFn: (updateMission: Step_3_FormValues) => {
+    mutationFn: (updateMission: unknown) => {
       return httpRequest<MissionRes>(
         'put',
         `${USER_ENDPOINT}/missions/${missionId}`,
@@ -62,8 +62,11 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
   });
 
   const onSubmit = (data: Step_3_FormValues) => {
-    if (isSaveDraft) mutaion.mutate(data);
-    else mutaion.mutate({ ...data, published: true });
+    const communityLinks = Object.entries(data)
+      .filter(([key, value]) => key !== '' && value !== '')
+      .map(([key, value]) => ({ name: key, url: value as string }));
+    if (isSaveDraft) mutaion.mutate(communityLinks);
+    else mutaion.mutate({ communityLinks, published: true });
   };
   const saveAsDraft = async () => {
     const isValidValues = await trigger();

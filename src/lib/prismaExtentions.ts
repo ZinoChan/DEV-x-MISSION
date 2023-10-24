@@ -72,6 +72,39 @@ export const xprisma = prisma.$extends({
           },
         });
       },
+      async getMissionById(id: string) {
+        return prisma.mission.findUnique({
+          where: {
+            id,
+            published: true,
+            archived: false,
+          },
+          include: {
+            user: {
+              select: {
+                name: true,
+                image: true,
+                id: true,
+              },
+            },
+            likes: {
+              select: {
+                id: true,
+                userId: true,
+                missionId: true,
+              },
+            },
+            votes: {
+              select: {
+                id: true,
+                userId: true,
+                missionId: true,
+              },
+            },
+            communityLinks: true,
+          },
+        });
+      },
     },
   },
 });

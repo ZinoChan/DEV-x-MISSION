@@ -30,6 +30,28 @@ export type Step_3_FormValues = {
 export interface MissionRes {
   mission: Mission;
 }
+export interface MissionsRes {
+  missions: ExtendedMission[];
+}
+
+export interface ExtendedMission extends Mission {
+  user: {
+    image: string | null;
+    id: string;
+    name: string | null;
+  };
+  likes: {
+    id: string;
+    userId: string;
+    missionId: string;
+  }[];
+  votes: {
+    id: string;
+    userId: string;
+    missionId: string;
+  }[];
+}
+
 export interface UserMissionRes {
   userMissions: TUserMission[];
 }

@@ -41,6 +41,37 @@ export const xprisma = prisma.$extends({
           },
         });
       },
+      async getMissions() {
+        return prisma.mission.findMany({
+          where: {
+            published: true,
+            archived: false,
+          },
+          include: {
+            user: {
+              select: {
+                name: true,
+                image: true,
+                id: true,
+              },
+            },
+            likes: {
+              select: {
+                id: true,
+                userId: true,
+                missionId: true,
+              },
+            },
+            votes: {
+              select: {
+                id: true,
+                userId: true,
+                missionId: true,
+              },
+            },
+          },
+        });
+      },
     },
   },
 });

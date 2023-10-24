@@ -1,3 +1,4 @@
+import { MISSIONS_STATUS, SKILL_LEVELS } from '@/constants/missionData';
 import { ROUTES } from '@/utils/routes';
 
 export const initialMarkdown = `## 🎯 Mission Objective:
@@ -25,13 +26,13 @@ export const skillRequired = [
   { value: 'Mobile', label: 'Mobile' },
 ];
 
-export const skillLevels = ['Beginner', 'Intermediate', 'Advanced'];
+export const skillLevels = Object.values(SKILL_LEVELS);
 export const projectTypes = [
   'Web Development',
   'Mobile Development',
   'UX/UI Design',
 ];
-export const projectStatus = ['Ideation', 'Prototype', 'Development'];
+export const projectStatus = Object.values(MISSIONS_STATUS);
 
 export const fakeMission = `
 ## 🎯 Mission Objective:

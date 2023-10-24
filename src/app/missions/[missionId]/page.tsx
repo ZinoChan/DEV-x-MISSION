@@ -5,27 +5,52 @@ import ReactionBtns from '@/components/missionDetails/ReactionBtns';
 import CommentsList from '@/components/missionDetails/CommentsList';
 import { CommentsContextProvider } from '@/context/comments';
 import Post from '@/shared/Post';
+import { xprisma } from '@/lib/prismaExtentions';
+import { Avatar } from '@/shared/Avatar';
+import CommunityLinksList from '@/components/missionDetails/CommunityLinksList';
 
-const MissionDetail = () => {
+export default async function MissionDetail({
+  params,
+}: {
+  params: { missionId: string };
+}) {
+  const { missionId } = params;
+
+  const mission = await xprisma.mission.getMissionById(missionId);
+  if (mission == null) return <div>mission not found</div>;
   return (
     <CommentsContextProvider>
       <section className='pt-10 '>
         <CommentsList />
         <div className='mx-auto max-w-screen-md px-4 py-20 sm:px-6 lg:px-8'>
           <BackBtn link={ROUTES.MISSIONS} />
-          <Post reactionBtns />
+          <Post reactionBtns mission={mission} />
+          <div className='mb-12 mt-6'>
+            <h3 className='mb-4 text-3xl'>Mission Community Links</h3>
+            {mission.communityLinks.map((link) => (
+              <CommunityLinksList
+                key={link.id}
+                linkName={link.linkName}
+                linkUrl={link.linkUrl}
+              />
+            ))}
+          </div>
           <ReactionBtns />
         </div>
         <div className='bg-light-2 py-20'>
           <div className='mx-auto max-w-screen-md px-2'>
             <div className='mb-20 flex flex-col items-center justify-between space-y-6 sm:flex-row sm:space-y-0'>
               <div className='flex flex-col items-center space-x-6 space-y-2 sm:flex-row sm:space-y-0'>
-                <div className='h-16 w-16  rounded-full bg-gray-300'></div>
+                <Avatar
+                  src={mission.user.image}
+                  alt={mission.user.name}
+                  size='md'
+                />
                 <div className='text-center sm:text-left'>
-                  <p className='font-bold capitalize text-dark-1'>zino chan</p>
-                  <p className='text-sm capitalize text-dark-1'>
-                    A Software engineer loves to build project for fun
+                  <p className='font-bold capitalize text-dark-1'>
+                    {mission.user.name}
                   </p>
+                  <p className='text-sm capitalize text-dark-1'>...</p>
                 </div>
               </div>
               <button className='flex items-center space-x-1 rounded-full bg-green-500 px-6 py-2 font-bold capitalize text-white hover:bg-green-400'>
@@ -39,6 +64,4 @@ const MissionDetail = () => {
       </section>
     </CommentsContextProvider>
   );
-};
-
-export default MissionDetail;
+}

@@ -1,4 +1,5 @@
 'use client';
+
 import ErrorUI from '@/shared/Error';
 import { useEffect } from 'react';
 

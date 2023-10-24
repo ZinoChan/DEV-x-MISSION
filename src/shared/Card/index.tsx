@@ -1,51 +1,41 @@
-import {
-  BsBookmarks,
-  BsHeart,
-  BsCodeSlash,
-  BsFillBarChartFill,
-} from 'react-icons/bs';
+import { BsBookmarks, BsHeart } from 'react-icons/bs';
 import { BiUpvote } from 'react-icons/bi';
 import Link from 'next/link';
+import { ExtendedMission } from '@/types/mission.types';
+import { ROUTES } from '@/utils/routes';
+import MissionStatus from './MissionStatus';
+import SkillLevel from './SkillLevel';
 
-const MissionCard = () => {
+const MissionCard = ({ mission }: { mission: ExtendedMission }) => {
   return (
     <div className='rounded-md bg-light-3 p-6 shadow transition-all hover:shadow-lg'>
-      <div className='mb-4 flex items-start space-x-4'>
-        <div className='flex h-16 w-20 items-center justify-center rounded bg-secondary-3 text-3xl'>
-          <BsCodeSlash />
-        </div>
+      <div className='mb-4 grid grid-cols-6 items-start gap-4'>
+        <MissionStatus status={mission.missionStatus} />
         <Link
-          href='/missions/mission-slug'
-          className='font-main text-4xl tracking-wider text-dark-1'
+          href={`${ROUTES.MISSIONS}/${mission.id}`}
+          className='col-span-5 line-clamp-2 max-h-20 font-main text-4xl tracking-wider text-dark-1 hover:text-primary-1 focus:text-lime-500'
         >
-          E-commerce cart consturction
+          {mission.missionName}
         </Link>
       </div>
       <div className='mb-4'>
-        <span className='inline-flex items-center space-x-1 rounded border-2 border-yellow-400 text-sm'>
-          <span className='flex h-auto w-6 items-center justify-center self-stretch bg-yellow-400 text-white'>
-            <BsFillBarChartFill />
-          </span>
-          <span className='p-1 font-bold text-yellow-400'>intermediate</span>
-        </span>
+        <SkillLevel skillLevel={mission.skillLevel} />
       </div>
       <div className='mb-6'>
         <p className='text-sm leading-loose text-gray-4'>
-          Create a responsive landing page for a fictional product This mission
-          will introduce agents to the basics of HTML, CSS, and design
-          principles.
+          {mission.missionObjective}
         </p>
       </div>
       <div className='flex items-center justify-between'>
-        <span className='text-sm font-bold'>sakata gintoki</span>
+        <span className='text-sm font-bold'>{mission.user.name}</span>
         <div className='flex items-center space-x-3'>
           <div className='flex items-center space-x-1 text-sm font-medium'>
             <BsHeart className='text-lg text-secondary-1' />
-            <span className='text-gray-4'>16</span>
+            <span className='text-gray-4'>{mission.likes.length}</span>
           </div>
           <div className='flex items-center space-x-1 text-base'>
             <BiUpvote className='text-xl text-secondary-2' />
-            <span className=' text-gray-4'>6</span>
+            <span className=' text-gray-4'>{mission.likes.length}</span>
           </div>
           <div className='flex items-center'>
             <BsBookmarks className='text-lg text-secondary-3' />

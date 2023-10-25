@@ -7,7 +7,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import {
   CommunityLink,
-  CommunityLinksReq,
+  MissionRes,
   Step_3_FormValues,
 } from '@/types/mission.types';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,7 +18,8 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import LoadingOverlay from '@/shared/LoadingOverlay';
 import { DraftBtn, SubmitBtn } from '@/shared/Button/MissionBtns';
-import { publishMission } from '@/actions/publishMission';
+import { httpRequest } from '@/utils/HttpRequest';
+import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 
 const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
   const router = useRouter();
@@ -39,17 +40,20 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
   });
 
   const mutaion = useMutation({
-    mutationFn: (updateMission: CommunityLinksReq) => {
-      return publishMission(null, { ...updateMission, missionId });
+    mutationFn: (updateMission: unknown) => {
+      return httpRequest<MissionRes>(
+        'put',
+        `${USER_ENDPOINT}/missions/${missionId}`,
+        updateMission
+      );
     },
     onSuccess: (data) => {
       if (isSaveDraft) {
         router.push(ROUTES.USER_PROFILE), toast.success('Changes Saved!');
         setRedirecting(true);
       } else {
-        if (data?.mission?.published == true)
-          toast.success('Mission Published');
-        if (data?.mission?.published != true)
+        if (data.mission.published == true) toast.success('Mission Published');
+        if (data.mission.published != true)
           toast('Mission saved as draft', { icon: '⚠️' });
         router.push(ROUTES.USER_PROFILE);
         setRedirecting(true);
@@ -61,7 +65,7 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
     const communityLinks = Object.entries(data)
       .filter(([key, value]) => key !== '' && value !== '')
       .map(([key, value]) => ({ name: key, url: value as string }));
-    if (isSaveDraft) mutaion.mutate({ communityLinks });
+    if (isSaveDraft) mutaion.mutate(communityLinks);
     else mutaion.mutate({ communityLinks, published: true });
   };
   const saveAsDraft = async () => {

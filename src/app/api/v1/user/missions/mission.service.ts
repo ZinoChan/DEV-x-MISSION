@@ -130,6 +130,7 @@ export async function deleteMission(
     where: { id: missionId, userId: user.id },
     data: {
       archived: true,
+      published: false,
     },
   });
   if (archivedMission != null) return archivedMission;

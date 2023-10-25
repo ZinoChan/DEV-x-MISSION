@@ -1,10 +1,10 @@
 import MissionHeader from '@/components/missions/MissionHeader';
+import { xprisma } from '@/lib/prismaExtentions';
 import MissionCard from '@/shared/Card';
 import Container from '@/shared/Container';
-import { getMissions } from '@/utils/Fetch/getMissions';
 
 export default async function Missions() {
-  const missions = await getMissions();
+  const missions = await xprisma.mission.getMissions();
   return (
     <section className='py-16'>
       <MissionHeader />

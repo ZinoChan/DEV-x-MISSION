@@ -4,8 +4,6 @@ import { handleErrMsg } from '@/utils/ErrHandling/HandleErr';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 import { deleteMission, updateMission } from '../mission.service';
-import { revalidatePath } from 'next/cache';
-import { ROUTES } from '@/utils/routes';
 
 export async function PUT(
   req: Request,
@@ -17,7 +15,6 @@ export async function PUT(
 
   try {
     const mission = await updateMission(req, missionId, currentUserEmail);
-    if (mission.published === true) revalidatePath(ROUTES.MISSIONS);
     return NextResponse.json({ mission }, { status: HTTP_STATUS.OK });
   } catch (error) {
     const { message, status } = handleErrMsg(error);

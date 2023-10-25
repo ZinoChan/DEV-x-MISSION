@@ -67,3 +67,11 @@ export interface TUserMission {
 export type PrismaUserMission = Omit<TUserMission, 'createAt'> & {
   createAt: Date;
 };
+
+export interface CommunityLinksReq {
+  communityLinks: {
+    name: string;
+    url: string;
+  }[];
+  published?: boolean;
+}

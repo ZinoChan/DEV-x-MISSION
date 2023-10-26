@@ -1,17 +1,19 @@
-const Comment = () => {
+import { Avatar } from '@/shared/Avatar';
+import { UserComment } from '@/types/mission.types';
+
+const Comment = ({ comment }: { comment: UserComment }) => {
   return (
     <div className='rounded bg-white p-4 shadow'>
       <div className='flex items-center justify-between'>
         <div className='flex items-center'>
-          <div className='mr-2 h-8 w-8 rounded-full bg-gray-300' />
-          <span className='font-semibold text-gray-700'>John Doe</span>
+          <Avatar src={comment.user.image} alt={comment.user.name} size='sm' />
+          <span className='font-semibold text-gray-700'>
+            {comment.user.name}
+          </span>
         </div>
         <span className='text-sm text-gray-500'>2 hours ago</span>
       </div>
-      <p className='mt-2 text-sm text-gray-4'>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in
-        turpis eros.
-      </p>
+      <p className='mt-2 text-sm text-gray-4'>{comment.content}</p>
     </div>
   );
 };

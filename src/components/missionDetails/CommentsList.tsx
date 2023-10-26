@@ -3,12 +3,19 @@ import { AiOutlineClose } from 'react-icons/ai';
 import Comment from './Comment';
 import AddComment from './AddComment';
 import { useCommentsContext } from '@/context/comments';
+import { UserComment } from '@/types/mission.types';
 
-const CommentsList = () => {
+const CommentsList = ({
+  missionId,
+  comments,
+}: {
+  missionId: string;
+  comments: UserComment[];
+}) => {
   const { isOpen, setOpen } = useCommentsContext();
   return (
     <div
-      className={`fixed  inset-y-0 right-0 max-w-sm overflow-y-auto ${
+      className={`fixed  inset-y-0 right-0 w-96 max-w-sm overflow-y-auto ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       } bg-light-2 transition-all duration-200 ease-linear`}
     >
@@ -22,13 +29,18 @@ const CommentsList = () => {
             <AiOutlineClose />
           </button>
         </div>
-        <AddComment />
+        <AddComment missionId={missionId} />
         <div className='mt-6'>
           <h4 className='font-body text-sm font-bold'>Most relevant</h4>
         </div>
         <div className='mt-6 space-y-4'>
-          <Comment />
-          <Comment />
+          {comments.length > 0 ? (
+            comments.map((comment) => (
+              <Comment key={comment.id} comment={comment} />
+            ))
+          ) : (
+            <div>no comment yet</div>
+          )}
         </div>
       </div>
     </div>

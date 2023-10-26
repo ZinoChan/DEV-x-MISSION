@@ -5,7 +5,7 @@ const Comment = ({ comment }: { comment: UserComment }) => {
   return (
     <div className='rounded bg-white p-4 shadow'>
       <div className='flex items-center justify-between'>
-        <div className='flex items-center'>
+        <div className='flex items-center space-x-2'>
           <Avatar src={comment.user.image} alt={comment.user.name} size='sm' />
           <span className='font-semibold text-gray-700'>
             {comment.user.name}

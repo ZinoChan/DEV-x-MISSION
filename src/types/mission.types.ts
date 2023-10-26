@@ -1,4 +1,4 @@
-import { Mission } from '@prisma/client';
+import { Like, Mission, Vote, Comment } from '@prisma/client';
 
 export type Step_1_FormValues = {
   missionName: string;
@@ -40,16 +40,8 @@ export interface ExtendedMission extends Mission {
     id: string;
     name: string | null;
   };
-  likes: {
-    id: string;
-    userId: string;
-    missionId: string;
-  }[];
-  votes: {
-    id: string;
-    userId: string;
-    missionId: string;
-  }[];
+  likes: Like[];
+  votes: Vote[];
 }
 
 export interface UserMissionRes {
@@ -74,4 +66,18 @@ export interface CommunityLinksReq {
     url: string;
   }[];
   published?: boolean;
+}
+
+export type UserComment = {
+  content: string;
+  updateAt: string | Date;
+  id: string;
+  user: {
+    image: string | null;
+    name: string | null;
+    id: string;
+  };
+};
+export interface MissionWithComments extends ExtendedMission {
+  comments: Comment[];
 }

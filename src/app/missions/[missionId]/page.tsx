@@ -21,7 +21,7 @@ export default async function MissionDetail({
   return (
     <CommentsContextProvider>
       <section className='pt-10 '>
-        <CommentsList />
+        <CommentsList missionId={mission.id} comments={mission.comments} />
         <div className='mx-auto max-w-screen-md px-4 py-20 sm:px-6 lg:px-8'>
           <BackBtn link={ROUTES.MISSIONS} />
           <Post reactionBtns mission={mission} />
@@ -35,7 +35,7 @@ export default async function MissionDetail({
               />
             ))}
           </div>
-          <ReactionBtns />
+          <ReactionBtns mission={mission} />
         </div>
         <div className='bg-light-2 py-20'>
           <div className='mx-auto max-w-screen-md px-2'>

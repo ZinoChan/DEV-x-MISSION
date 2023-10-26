@@ -1,6 +1,6 @@
 import ReactionBtns from '@/components/missionDetails/ReactionBtns';
 import EditBtns from '@/components/profile/EditBtns';
-import { ExtendedMission } from '@/types/mission.types';
+import { MissionWithComments } from '@/types/mission.types';
 import Markdown from 'react-markdown';
 import { LevelTag, StatusTag } from './Tags';
 import { Avatar } from '@/shared/Avatar';
@@ -9,7 +9,7 @@ type Props = {
   reactionBtns?: boolean;
   editBtns?: boolean;
   missionId?: string;
-  mission: ExtendedMission;
+  mission: MissionWithComments;
 };
 
 const Post = ({ reactionBtns, editBtns, missionId, mission }: Props) => {
@@ -37,7 +37,7 @@ const Post = ({ reactionBtns, editBtns, missionId, mission }: Props) => {
           </div>
           <p className='text-xs font-medium'>2 minutes read</p>
         </div>
-        {(reactionBtns ?? false) && <ReactionBtns />}
+        {(reactionBtns ?? false) && <ReactionBtns mission={mission} />}
         {(editBtns ?? false) && missionId != null ? (
           <EditBtns missionId={missionId} />
         ) : null}

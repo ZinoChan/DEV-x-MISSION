@@ -10,9 +10,16 @@ type Props = {
   editBtns?: boolean;
   missionId?: string;
   mission: MissionWithComments;
+  userId?: string;
 };
 
-const Post = ({ reactionBtns, editBtns, missionId, mission }: Props) => {
+const Post = ({
+  reactionBtns,
+  editBtns,
+  missionId,
+  mission,
+  userId,
+}: Props) => {
   return (
     <div>
       <h1 className='my-6 text-3xl tracking-wider md:text-6xl'>
@@ -37,7 +44,9 @@ const Post = ({ reactionBtns, editBtns, missionId, mission }: Props) => {
           </div>
           <p className='text-xs font-medium'>2 minutes read</p>
         </div>
-        {(reactionBtns ?? false) && <ReactionBtns mission={mission} />}
+        {(reactionBtns ?? false) && userId != null && (
+          <ReactionBtns userId={userId} mission={mission} />
+        )}
         {(editBtns ?? false) && missionId != null ? (
           <EditBtns missionId={missionId} />
         ) : null}

@@ -8,6 +8,8 @@ import Post from '@/shared/Post';
 import { xprisma } from '@/lib/prismaExtentions';
 import { Avatar } from '@/shared/Avatar';
 import CommunityLinksList from '@/components/missionDetails/CommunityLinksList';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/utils/AuthOptions';
 
 export default async function MissionDetail({
   params,
@@ -18,6 +20,15 @@ export default async function MissionDetail({
 
   const mission = await xprisma.mission.getMissionById(missionId);
   if (mission == null) return <div>mission not found</div>;
+
+  const session = await getServerSession(authOptions);
+  const currentUserEmail = session?.user?.email;
+  let userId = '';
+  if (currentUserEmail != null) {
+    const user = await xprisma.user.findByEmail(currentUserEmail);
+    if (user != null) userId = user.id;
+  }
+
   return (
     <CommentsContextProvider>
       <section className='pt-10 '>
@@ -35,7 +46,7 @@ export default async function MissionDetail({
               />
             ))}
           </div>
-          <ReactionBtns mission={mission} />
+          <ReactionBtns mission={mission} userId={userId} />
         </div>
         <div className='bg-light-2 py-20'>
           <div className='mx-auto max-w-screen-md px-2'>

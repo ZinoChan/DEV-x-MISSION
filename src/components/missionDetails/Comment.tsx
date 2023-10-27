@@ -6,7 +6,6 @@ import toast from 'react-hot-toast';
 import TimeAgo from 'react-timeago';
 
 const Comment = ({ comment }: { comment: UserComment }) => {
-  console.log(comment);
   const handleCommentDel = async () => {
     const res = await deleteComment(comment.id);
     if (res.success && res.data != null) toast.success('comment deleted');

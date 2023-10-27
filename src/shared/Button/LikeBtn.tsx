@@ -1,7 +1,6 @@
 'use client';
 import { like } from '@/actions/likes.action';
 import { BiHeart } from 'react-icons/bi';
-import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { BsFillHeartFill } from 'react-icons/bs';
 
@@ -13,11 +12,9 @@ type Props = {
 };
 
 const LikeBtn = ({ missionId, currRoute, likeCount, userLikes }: Props) => {
-  const [count, setCount] = useState(likeCount);
   const handleLike = async () => {
     const res = await like(missionId, currRoute);
-    if (res.success && res.data != null) setCount(res.data);
-    else toast(res.message);
+    if (!res.success) toast(res.message);
   };
 
   return (
@@ -30,7 +27,7 @@ const LikeBtn = ({ missionId, currRoute, likeCount, userLikes }: Props) => {
       ) : (
         <BiHeart className='text-xl' />
       )}
-      <span className='ml-1'>{count}</span>
+      <span className='ml-1'>{likeCount}</span>
     </button>
   );
 };

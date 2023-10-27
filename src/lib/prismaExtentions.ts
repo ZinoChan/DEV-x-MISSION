@@ -55,20 +55,8 @@ export const xprisma = prisma.$extends({
                 id: true,
               },
             },
-            likes: {
-              select: {
-                id: true,
-                userId: true,
-                missionId: true,
-              },
-            },
-            votes: {
-              select: {
-                id: true,
-                userId: true,
-                missionId: true,
-              },
-            },
+            likes: true,
+            votes: true,
           },
         });
       },
@@ -87,18 +75,17 @@ export const xprisma = prisma.$extends({
                 id: true,
               },
             },
-            likes: {
-              select: {
-                id: true,
-                userId: true,
-                missionId: true,
-              },
-            },
-            votes: {
-              select: {
-                id: true,
-                userId: true,
-                missionId: true,
+            likes: true,
+            votes: true,
+            comments: {
+              include: {
+                user: {
+                  select: {
+                    id: true,
+                    name: true,
+                    image: true,
+                  },
+                },
               },
             },
             communityLinks: true,

@@ -1,14 +1,15 @@
-import { BsBookmarks, BsHeart } from 'react-icons/bs';
-import { BiUpvote } from 'react-icons/bi';
+import { BsBookmarks } from 'react-icons/bs';
 import Link from 'next/link';
 import { ExtendedMission } from '@/types/mission.types';
 import { ROUTES } from '@/utils/routes';
 import MissionStatus from './MissionStatus';
 import SkillLevel from './SkillLevel';
+import LikeBtn from '../Button/LikeBtn';
+import VoteBtn from '../Button/VoteBtn';
 
 const MissionCard = ({ mission }: { mission: ExtendedMission }) => {
   return (
-    <div className='rounded-md bg-light-3 p-6 shadow transition-all hover:shadow-lg'>
+    <div className='flex flex-col justify-between rounded-md bg-light-3 p-6 shadow transition-all hover:shadow-lg'>
       <div className='mb-4 grid grid-cols-6 items-start gap-4'>
         <MissionStatus status={mission.missionStatus} />
         <Link
@@ -29,14 +30,22 @@ const MissionCard = ({ mission }: { mission: ExtendedMission }) => {
       <div className='flex items-center justify-between'>
         <span className='text-sm font-bold'>{mission.user.name}</span>
         <div className='flex items-center space-x-3'>
-          <div className='flex items-center space-x-1 text-sm font-medium'>
-            <BsHeart className='text-lg text-secondary-1' />
-            <span className='text-gray-4'>{mission.likes.length}</span>
-          </div>
-          <div className='flex items-center space-x-1 text-base'>
-            <BiUpvote className='text-xl text-secondary-2' />
-            <span className=' text-gray-4'>{mission.likes.length}</span>
-          </div>
+          <LikeBtn
+            missionId={mission.id}
+            likeCount={mission.likes.length}
+            currRoute={ROUTES.MISSIONS}
+            userLikes={mission.likes.some(
+              (like) => like.userId === mission.userId
+            )}
+          />
+          <VoteBtn
+            missionId={mission.id}
+            voteCount={mission.votes.length}
+            currRoute={ROUTES.MISSIONS}
+            userVotes={mission.votes.some(
+              (vote) => vote.userId === mission.userId
+            )}
+          />
           <div className='flex items-center'>
             <BsBookmarks className='text-lg text-secondary-3' />
           </div>

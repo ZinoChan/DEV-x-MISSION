@@ -9,7 +9,7 @@ import VoteBtn from '../Button/VoteBtn';
 
 const MissionCard = ({ mission }: { mission: ExtendedMission }) => {
   return (
-    <div className='rounded-md bg-light-3 p-6 shadow transition-all hover:shadow-lg'>
+    <div className='flex flex-col justify-between rounded-md bg-light-3 p-6 shadow transition-all hover:shadow-lg'>
       <div className='mb-4 grid grid-cols-6 items-start gap-4'>
         <MissionStatus status={mission.missionStatus} />
         <Link

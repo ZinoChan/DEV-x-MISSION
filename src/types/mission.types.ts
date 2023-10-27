@@ -69,6 +69,8 @@ export interface CommunityLinksReq {
 }
 
 export type UserComment = {
+  missionId: string;
+  userId: string;
   content: string;
   updateAt: string | Date;
   id: string;

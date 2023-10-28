@@ -15,7 +15,7 @@ const CommentsList = ({
   const { isOpen, setOpen } = useCommentsContext();
   return (
     <div
-      className={`fixed  inset-y-0 right-0 w-96 max-w-sm overflow-y-auto ${
+      className={`fixed inset-y-0 right-0 z-20 w-96 max-w-sm overflow-y-auto shadow-md ${
         isOpen ? 'translate-x-0' : 'translate-x-full'
       } bg-light-2 transition-all duration-200 ease-linear`}
     >

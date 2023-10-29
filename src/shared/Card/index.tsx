@@ -1,5 +1,3 @@
-import { BsBookmarks } from 'react-icons/bs';
-import Link from 'next/link';
 import { ExtendedMission } from '@/types/mission.types';
 import { ROUTES } from '@/utils/routes';
 import MissionStatus from './MissionStatus';
@@ -9,6 +7,8 @@ import VoteBtn from '../Button/VoteBtn';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/utils/AuthOptions';
 import { xprisma } from '@/lib/prismaExtentions';
+import Bookmark from '../Button/Bookmark';
+import Link from 'next/link';
 
 export async function MissionCard({ mission }: { mission: ExtendedMission }) {
   const session = await getServerSession(authOptions);
@@ -53,9 +53,7 @@ export async function MissionCard({ mission }: { mission: ExtendedMission }) {
             currRoute={ROUTES.MISSIONS}
             userVotes={mission.votes.some((vote) => vote.userId === userId)}
           />
-          <div className='flex items-center'>
-            <BsBookmarks className='text-lg text-secondary-3' />
-          </div>
+          <Bookmark missionId={mission.id} currRoute={ROUTES.MISSIONS} />
         </div>
       </div>
     </div>

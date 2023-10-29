@@ -2,7 +2,7 @@
 import { vote } from '@/actions/vote.action';
 import toast from 'react-hot-toast';
 import { BiUpvote, BiSolidUpvote } from 'react-icons/bi';
-import { experimental_useOptimistic as useOptimistic } from 'react';
+import { useOptimistic } from 'react';
 import Spinner from '../Spinner';
 
 type Props = {
@@ -41,7 +41,11 @@ const VoteBtn = ({ missionId, currRoute, voteCount, userVotes }: Props) => {
         <BiUpvote className='text-xl' />
       )}
       <span className='ml-1'>
-        {optimisticVote.sending ? <Spinner /> : optimisticVote.voteCount}
+        {optimisticVote.sending == true ? (
+          <Spinner />
+        ) : (
+          optimisticVote.voteCount
+        )}
       </span>
     </button>
   );

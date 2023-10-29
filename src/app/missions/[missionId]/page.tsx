@@ -35,7 +35,7 @@ export default async function MissionDetail({
         <CommentsList missionId={mission.id} comments={mission.comments} />
         <div className='mx-auto max-w-screen-md px-4 py-20 sm:px-6 lg:px-8'>
           <BackBtn link={ROUTES.MISSIONS} />
-          <Post reactionBtns mission={mission} />
+          <Post reactionBtns mission={mission} userId={userId} />
           <div className='mb-12 mt-6'>
             <h3 className='mb-4 text-3xl'>Mission Community Links</h3>
             {mission.communityLinks.map((link) => (

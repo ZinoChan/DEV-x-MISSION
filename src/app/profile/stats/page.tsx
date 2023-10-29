@@ -1,32 +1,62 @@
+import { xprisma } from '@/lib/prismaExtentions';
+import { ROUTES } from '@/utils/routes';
 import { BiGroup, BiHeart, BiSolidUpvote, BiTask } from 'react-icons/bi';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
+import { authOptions } from '@/utils/AuthOptions';
 
-const data = [
-  {
-    icon: <BiHeart className='text-3xl text-red-400' />,
-    name: 'Likes',
-    value: 500,
-  },
-  {
-    icon: <BiGroup className='text-3xl text-primary-2' />,
-    name: 'Followers',
-    value: 10,
-  },
-  {
-    icon: <BiTask className='text-3xl text-secondary-3' />,
-    name: 'Missions',
-    value: 5,
-  },
-  {
-    icon: <BiSolidUpvote className='text-3xl text-secondary-2' />,
-    name: 'Votes',
-    value: 50,
-  },
-];
+function mapStats(
+  likes: number | undefined,
+  votes: number | undefined,
+  followers: number | undefined,
+  missions: number | undefined
+) {
+  return [
+    {
+      icon: <BiHeart className='text-3xl text-red-400' />,
+      name: 'Likes',
+      value: likes ?? 0,
+    },
+    {
+      icon: <BiGroup className='text-3xl text-primary-2' />,
+      name: 'Followers',
+      value: followers ?? 0,
+    },
+    {
+      icon: <BiTask className='text-3xl text-secondary-3' />,
+      name: 'Missions',
+      value: missions ?? 0,
+    },
+    {
+      icon: <BiSolidUpvote className='text-3xl text-secondary-2' />,
+      name: 'Votes',
+      value: votes ?? 0,
+    },
+  ];
+}
 
-function Stats() {
+export default async function Stats() {
+  const session = await getServerSession(authOptions);
+  if (!session) redirect(`/api/auth/signin?callbackUrl=${ROUTES.USER_STATS}`);
+
+  const currentUserEmail = session?.user?.email;
+
+  if (currentUserEmail == null) return null;
+  const user = await xprisma.user.findByEmail(currentUserEmail);
+
+  if (!user) return null;
+  const userStats = await xprisma.user.getUserStats(user.id);
   return (
     <section className='grid min-w-[300px] max-w-full justify-center gap-10 py-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-      {data.map((item) => (
+      {mapStats(
+        userStats?.missions.reduce(
+          (sum, mission) => sum + mission.likes.length,
+          0
+        ),
+        userStats?.votes.length,
+        userStats?.followers.length,
+        userStats?.missions.length
+      ).map((item) => (
         <div
           key={item.name}
           className='flex min-h-[150px] max-w-sm flex-col items-center justify-center space-y-2 rounded-lg border border-gray-200 bg-white bg-gradient-to-b from-[#F4F6F0] to-[#eee] p-6 text-center shadow'
@@ -39,5 +69,3 @@ function Stats() {
     </section>
   );
 }
-
-export default Stats;

@@ -8,6 +8,39 @@ export const xprisma = prisma.$extends({
           where: { email },
         });
       },
+      async getUserStats(userId: string) {
+        return prisma.user.findUnique({
+          where: {
+            id: userId,
+          },
+          select: {
+            missions: {
+              where: {
+                archived: false,
+              },
+              select: {
+                id: true,
+                likes: {
+                  select: {
+                    id: true,
+                  },
+                },
+              },
+            },
+
+            votes: {
+              select: {
+                id: true,
+              },
+            },
+            followers: {
+              select: {
+                followerId: true,
+              },
+            },
+          },
+        });
+      },
     },
     mission: {
       async findMissionById(id: string) {

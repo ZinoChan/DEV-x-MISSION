@@ -3,7 +3,8 @@ import { like } from '@/actions/likes.action';
 import { BiHeart } from 'react-icons/bi';
 import toast from 'react-hot-toast';
 import { BsFillHeartFill } from 'react-icons/bs';
-import { experimental_useOptimistic as useOptimistic } from 'react';
+import { useOptimistic } from 'react';
+
 import Spinner from '../Spinner';
 
 type Props = {
@@ -42,7 +43,11 @@ const LikeBtn = ({ missionId, currRoute, likeCount, userLikes }: Props) => {
         <BiHeart className='text-xl' />
       )}
       <span className='ml-1'>
-        {optimisticLike.sending ? <Spinner /> : optimisticLike.likeCount}
+        {optimisticLike.sending == true ? (
+          <Spinner />
+        ) : (
+          optimisticLike.likeCount
+        )}
       </span>
     </button>
   );

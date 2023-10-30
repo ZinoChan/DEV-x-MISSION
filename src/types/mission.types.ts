@@ -83,3 +83,12 @@ export type UserComment = {
 export interface MissionWithComments extends ExtendedMission {
   comments: Comment[];
 }
+
+export type MissionQuery = {
+  skillRequired?: string;
+  skillLevel?: string;
+  missionType?: string;
+  missionStatus?: string;
+  likes?: string;
+  votes?: string;
+};

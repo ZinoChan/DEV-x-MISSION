@@ -1,4 +1,8 @@
-import { MISSIONS_STATUS, SKILL_LEVELS } from '@/constants/missionData';
+import {
+  MISSIONS_STATUS,
+  REACTION_ORDER,
+  SKILL_LEVELS,
+} from '@/constants/missionData';
 import { ROUTES } from '@/utils/routes';
 
 export const initialMarkdown = `## 🎯 Mission Objective:
@@ -125,4 +129,17 @@ export const userMissionFilter = [
   { label: 'Draft', value: 'draft' },
   { label: 'Published', value: 'published' },
   { label: 'By number', value: 'number' },
+];
+
+const userVotes = Object.values(REACTION_ORDER);
+const userLikes = Object.values(REACTION_ORDER);
+
+const sRequired = ['Front-end', 'Backend', 'FullStack', 'Design', 'Mobile'];
+export const missionFilters = [
+  { label: 'skill required', options: sRequired },
+  { label: 'skill level', options: skillLevels },
+  { label: 'mission type ', options: projectTypes },
+  { label: 'mission status ', options: projectStatus },
+  { label: 'likes', options: userLikes },
+  { label: 'votes', options: userVotes },
 ];

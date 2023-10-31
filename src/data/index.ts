@@ -109,6 +109,7 @@ export const communityLinks = [
 export const profileLinks = [
   { label: 'missions', route: ROUTES.USER_PROFILE },
   { label: 'stats', route: ROUTES.USER_STATS },
+  { label: 'saved', route: ROUTES.USER_SAVED_MISSIONS },
 ];
 
 export const initialValues_1 = {

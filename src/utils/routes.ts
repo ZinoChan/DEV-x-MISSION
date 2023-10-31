@@ -8,4 +8,5 @@ export const ROUTES = {
   CREATE_MISSION_STEP_3: '/create-mission/step_3',
   USER_PROFILE: '/profile',
   USER_STATS: '/profile/stats',
+  USER_SAVED_MISSIONS: '/profile/savedMissions',
 };

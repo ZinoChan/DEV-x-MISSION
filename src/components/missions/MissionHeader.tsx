@@ -6,9 +6,17 @@ import { BsFilter } from 'react-icons/bs';
 import { useState } from 'react';
 import Link from 'next/link';
 import { ROUTES } from '@/utils/routes';
+import { useRouter } from 'next/navigation';
+import { DangerBtn } from '@/shared/Button/Btns';
 
-const MissionHeader = () => {
+const MissionHeader = ({ isFilterEmpty }: { isFilterEmpty: boolean }) => {
   const [isFilterOpen, setFiltersOpen] = useState(false);
+  const [query, setQuery] = useState('?');
+  const router = useRouter();
+  const clearFilter = () => {
+    setQuery('?');
+    router.push(ROUTES.MISSIONS);
+  };
   return (
     <>
       <Container>
@@ -20,13 +28,18 @@ const MissionHeader = () => {
             <span>create mission</span>
             <AiOutlinePlusCircle className='text-xl' />
           </Link>
-          <button
-            onClick={() => setFiltersOpen(!isFilterOpen)}
-            className='flex items-center space-x-2 rounded-full border  border-gray-4 px-4 py-1.5 text-center text-sm font-bold capitalize text-gray-4 transition-colors hover:bg-gray-4 hover:text-white'
-          >
-            <span>filter</span>
-            <BsFilter className='text-xl' />
-          </button>
+          <div className='flex items-center space-x-4'>
+            {isFilterEmpty == false && (
+              <DangerBtn onClick={clearFilter}>clear filter</DangerBtn>
+            )}
+            <button
+              onClick={() => setFiltersOpen(!isFilterOpen)}
+              className='flex items-center space-x-2 rounded-full border  border-gray-4 px-4 py-1.5 text-center text-sm font-bold capitalize text-gray-4 transition-colors hover:bg-gray-4 hover:text-white'
+            >
+              <span>filter</span>
+              <BsFilter className='text-xl' />
+            </button>
+          </div>
         </div>
       </Container>
       <div
@@ -35,7 +48,7 @@ const MissionHeader = () => {
         }`}
       >
         <Container>
-          <Filter />
+          <Filter setQuery={setQuery} query={query} />
         </Container>
       </div>
     </>

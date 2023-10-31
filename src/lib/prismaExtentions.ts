@@ -1,4 +1,5 @@
 import { prisma } from './prisma';
+import { Prisma } from '@prisma/client';
 
 export const xprisma = prisma.$extends({
   model: {
@@ -74,11 +75,18 @@ export const xprisma = prisma.$extends({
           },
         });
       },
-      async getMissions() {
+      async getMissions(
+        filters?: Prisma.MissionWhereInput,
+        orders?: Prisma.MissionOrderByWithRelationInput
+      ) {
         return prisma.mission.findMany({
           where: {
+            ...filters,
             published: true,
             archived: false,
+          },
+          orderBy: {
+            ...orders,
           },
           include: {
             user: {

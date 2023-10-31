@@ -9,3 +9,8 @@ export const SKILL_LEVELS = {
   INTERMEDIATE: 'intermediate',
   ADVANCED: 'advanced',
 };
+
+export const REACTION_ORDER = {
+  HIGH: 'high',
+  LOW: 'low',
+};

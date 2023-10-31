@@ -30,9 +30,7 @@ const MissionHeader = ({ isFilterEmpty }: { isFilterEmpty: boolean }) => {
           </Link>
           <div className='flex items-center space-x-4'>
             {isFilterEmpty == false && (
-              <DangerBtn onClick={clearFilter} className='rounded-full'>
-                clear filter
-              </DangerBtn>
+              <DangerBtn onClick={clearFilter}>clear filter</DangerBtn>
             )}
             <button
               onClick={() => setFiltersOpen(!isFilterOpen)}

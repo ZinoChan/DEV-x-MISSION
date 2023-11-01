@@ -2,7 +2,7 @@
 import { profileLinks } from '@/data';
 import { Avatar } from '@/shared/Avatar';
 import Container from '@/shared/Container';
-import { ROUTES } from '@/utils/routes';
+// import { ROUTES } from '@/utils/routes';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -26,12 +26,12 @@ export default function ProfileLayout({ children }: { children: ReactNode }) {
                 <p className='mb-2 text-lg font-bold text-dark-1'>
                   {session?.user?.name}
                 </p>
-                <Link
+                {/* <Link
                   href={`${ROUTES.USER_PROFILE}/edit-profile`}
                   className='rounded-full border border-gray-4 px-3 py-1.5 text-sm font-medium capitalize text-gray-4 transition-all hover:bg-gray-4 hover:text-white'
                 >
                   edit profile
-                </Link>
+                </Link> */}
               </div>
             </div>
           )}

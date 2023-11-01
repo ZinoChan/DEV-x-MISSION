@@ -32,7 +32,7 @@ const UserMission = ({ missionName, id, published, setFilterId }: Props) => {
           )}
         </div>
       </div>
-      <Link href={`${ROUTES.USER_PROFILE}/mission-slug`}>
+      <Link href={`${ROUTES.USER_PROFILE}/${id}`}>
         <h3 className='text-4xl hover:text-primary-2'>
           Mission: {missionName}
         </h3>

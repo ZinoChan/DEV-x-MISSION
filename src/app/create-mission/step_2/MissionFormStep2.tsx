@@ -19,7 +19,7 @@ import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 import { DraftBtn, SubmitBtn } from '@/shared/Button/MissionBtns';
 import toast from 'react-hot-toast';
 
-type MutationData = {
+export type MutationData = {
   missionDetails: string;
   skillRequired: string[];
 };

@@ -134,5 +134,17 @@ export const xprisma = prisma.$extends({
         });
       },
     },
+    savedMission: {
+      async getSavedMissions(userId: string) {
+        return prisma.savedMission.findMany({
+          where: {
+            userId,
+          },
+          include: {
+            mission: true,
+          },
+        });
+      },
+    },
   },
 });

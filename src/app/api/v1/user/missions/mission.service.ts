@@ -77,25 +77,63 @@ export async function updateMission(
 
   if (data.skillRequired != null) {
     for (const skillName of data.skillRequired) {
-      await prisma.skillRequired.create({
-        data: {
+      const existingSkill = await prisma.skillRequired.findFirst({
+        where: {
           name: skillName,
-          mission: { connect: { id: missionId } },
+          missionId: missionId,
         },
       });
+
+      if (existingSkill) {
+        await prisma.skillRequired.update({
+          where: {
+            id: existingSkill.id,
+          },
+          data: {
+            name: skillName,
+          },
+        });
+      } else {
+        await prisma.skillRequired.create({
+          data: {
+            name: skillName,
+            mission: { connect: { id: missionId } },
+          },
+        });
+      }
     }
   }
+
   if (data.communityLinks != null) {
     for (const link of data.communityLinks) {
-      await prisma.communityLink.create({
-        data: {
+      const existingLink = await prisma.communityLink.findFirst({
+        where: {
           linkName: link.name,
-          linkUrl: link.url,
-          mission: { connect: { id: missionId } },
+          missionId: missionId,
         },
       });
+
+      if (existingLink) {
+        await prisma.communityLink.update({
+          where: {
+            id: existingLink.id,
+          },
+          data: {
+            linkUrl: link.url,
+          },
+        });
+      } else {
+        await prisma.communityLink.create({
+          data: {
+            linkName: link.name,
+            linkUrl: link.url,
+            mission: { connect: { id: missionId } },
+          },
+        });
+      }
     }
   }
+
   if (data.published == true) {
     const allFieldsAreField =
       await xprisma.mission.areAllFieldsFilled(missionId);

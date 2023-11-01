@@ -1,6 +1,5 @@
 'use client';
 import AddLink from '@/components/missions/AddLink';
-import { communityLinks } from '@/data';
 import { ROUTES } from '@/utils/routes';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -9,28 +8,74 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { create_mission_schema_3 } from '@/utils/validation/mission_validation';
 import Mission_Step_3 from '@/shared/Forms/Mission_Step_3';
 import { useRouter } from 'next/navigation';
+import { Mission } from '@prisma/client';
+import { useMutation } from '@tanstack/react-query';
+import { httpRequest } from '@/utils/HttpRequest';
+import { MissionRes } from '@/types/mission.types';
+import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 import toast from 'react-hot-toast';
+import LoadingOverlay from '@/shared/LoadingOverlay';
 
-const CreateMissionStep_3 = () => {
+type Props = {
+  mission: Mission & {
+    communityLinks: {
+      id: string;
+      linkName: string;
+      linkUrl: string;
+      missionId: string;
+    }[];
+  };
+};
+
+const EditFormStep3 = ({ mission }: Props) => {
   const [isAddLinkOpen, setAddLinkOpen] = useState(false);
   const router = useRouter();
-  const [community_links, setCommunityLinks] =
-    useState<CommunityLink[]>(communityLinks);
+  const [community_links, setCommunityLinks] = useState<CommunityLink[]>(
+    mission.communityLinks.map((link) => ({ name: link.linkName, id: link.id }))
+  );
+  const [isRedirecting, setRedirecting] = useState(false);
+
+  const defaultValues = Object.fromEntries(
+    mission.communityLinks.map((link) => [link.linkName, link.linkUrl])
+  );
+
   const {
     handleSubmit,
     formState: { errors },
     register,
   } = useForm<Step_3_FormValues>({
-    defaultValues: {},
+    defaultValues,
     resolver: yupResolver(create_mission_schema_3),
   });
+
+  const mutation = useMutation({
+    mutationFn: (updateMission: unknown) => {
+      return httpRequest<MissionRes>(
+        'put',
+        `${USER_ENDPOINT}/missions/${mission.id}`,
+        updateMission
+      );
+    },
+    onSuccess: (data) => {
+      if (data.mission.published == true) toast.success('Mission Published');
+      if (data.mission.published != true)
+        toast('Mission saved as draft', { icon: '⚠️' });
+      router.push(ROUTES.USER_PROFILE);
+      setRedirecting(true);
+    },
+  });
+
   const onSubmit = (data: Step_3_FormValues) => {
-    console.log(data);
-    toast.success('mission edit successfully');
-    router.push(ROUTES.USER_PROFILE);
+    const communityLinks = Object.entries(data)
+      .filter(([key, value]) => key !== '' && value !== '')
+      .map(([key, value]) => ({ name: key, url: value as string }));
+
+    mutation.mutate({ communityLinks, published: true });
   };
   return (
     <section className='mx-auto max-w-screen-md px-2 py-16'>
+      {isRedirecting && <LoadingOverlay />}
+      {mutation.isLoading && <LoadingOverlay />}
       <div className='mb-10 text-center'>
         <h1 className='mb-3 text-5xl text-dark-1 sm:text-6xl'>
           community links
@@ -64,4 +109,4 @@ const CreateMissionStep_3 = () => {
   );
 };
 
-export default CreateMissionStep_3;
+export default EditFormStep3;

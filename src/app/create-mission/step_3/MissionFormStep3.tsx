@@ -39,7 +39,7 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
     resolver: yupResolver(create_mission_schema_3),
   });
 
-  const mutaion = useMutation({
+  const mutation = useMutation({
     mutationFn: (updateMission: unknown) => {
       return httpRequest<MissionRes>(
         'put',
@@ -65,8 +65,8 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
     const communityLinks = Object.entries(data)
       .filter(([key, value]) => key !== '' && value !== '')
       .map(([key, value]) => ({ name: key, url: value as string }));
-    if (isSaveDraft) mutaion.mutate(communityLinks);
-    else mutaion.mutate({ communityLinks, published: true });
+    if (isSaveDraft) mutation.mutate(communityLinks);
+    else mutation.mutate({ communityLinks, published: true });
   };
   const saveAsDraft = async () => {
     const isValidValues = await trigger();
@@ -79,7 +79,7 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
   return (
     <section className='mx-auto max-w-screen-md px-2 py-16'>
       {isRedirecting && <LoadingOverlay />}
-      {mutaion.isLoading && <LoadingOverlay />}
+      {mutation.isLoading && <LoadingOverlay />}
       <BackBtn link={ROUTES.MISSIONS} />
       <div className='mb-10 text-center'>
         <h1 className='mb-3 text-5xl text-dark-1 sm:text-6xl'>

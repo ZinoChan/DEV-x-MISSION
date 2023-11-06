@@ -8,6 +8,7 @@ import { ROUTES } from '@/utils/routes';
 import HowItWorks from './components/HowItWorks';
 import Features from './components/Features';
 import Footer from './components/Footer';
+import About from './components/About';
 
 export default function Home() {
   return (
@@ -55,9 +56,10 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <div className='bg-light-2'>
+      <div className='bg-light-2 pb-20'>
         <HowItWorks />
         <Features />
+        <About />
       </div>
       <Footer />
     </div>

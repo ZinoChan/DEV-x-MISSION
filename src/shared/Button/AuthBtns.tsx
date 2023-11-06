@@ -37,35 +37,49 @@ export function SignInButton() {
 
   if (status === 'authenticated') {
     return (
-      <div
-        onClick={() => setDropDownOpen(!isDropDownOpen)}
-        ref={dropdownRef}
-        className='relative cursor-pointer'
-      >
-        <div className='flex items-center space-x-2'>
-          <Avatar
-            size='sm'
-            src={session.user?.image}
-            alt={session.user?.name}
-          />
-        </div>
+      <>
         <div
-          className={`absolute right-0 top-full z-10 translate-y-2 rounded bg-light-2 transition-all duration-150 ease-linear ${
-            isDropDownOpen ? ' min-h-[104px]' : 'h-0 overflow-hidden'
-          } `}
+          onClick={() => setDropDownOpen(!isDropDownOpen)}
+          ref={dropdownRef}
+          className='relative hidden cursor-pointer md:block'
         >
-          <ul className='flex flex-col items-center'>
-            <li className='border-b border-gray-1 px-6 py-4 text-sm font-medium text-gray-4 hover:bg-lime-50'>
+          <div className='flex items-center space-x-2'>
+            <Avatar
+              size='sm'
+              src={session.user?.image}
+              alt={session.user?.name}
+            />
+          </div>
+          <div
+            className={`absolute right-0 top-full z-10 translate-y-2 rounded bg-light-2 transition-all duration-150 ease-linear ${
+              isDropDownOpen ? ' min-h-[104px]' : 'h-0 overflow-hidden'
+            } `}
+          >
+            <ul className='flex flex-col items-center'>
+              <li className='border-b border-gray-1 px-6 py-4 text-sm font-medium text-gray-4 hover:bg-lime-50'>
+                <button>
+                  <Link href={ROUTES.USER_PROFILE}>Dashboard</Link>
+                </button>
+              </li>
+              <li className='w-full px-6 py-4 text-center text-sm font-medium text-gray-4 hover:bg-lime-50'>
+                <SignOutButton />
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className='md:hidden'>
+          <ul className='flex flex-col items-center pb-4'>
+            <li className='border-b border-gray-1 text-sm font-medium text-gray-4 hover:bg-lime-50'>
               <button>
                 <Link href={ROUTES.USER_PROFILE}>Dashboard</Link>
               </button>
             </li>
-            <li className='w-full px-6 py-4 text-center text-sm font-medium text-gray-4 hover:bg-lime-50'>
+            <li className='w-full py-2 text-center text-sm font-medium text-gray-4 hover:bg-lime-50'>
               <SignOutButton />
             </li>
           </ul>
         </div>
-      </div>
+      </>
     );
   }
 

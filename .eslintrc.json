@@ -5,7 +5,9 @@
     "plugin:@typescript-eslint/recommended",
     "plugin:tailwindcss/recommended",
     "prettier",
-    "plugin:@tanstack/eslint-plugin-query/recommended"
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended"
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
@@ -25,12 +27,11 @@
     "@tanstack/query/stable-query-client": "error"
   },
   "ignorePatterns": [
-    "**/*.test.ts",
-    "**/*.test.tsx",
     "prettier.config.js",
     "tailwind.config.js",
-    "jest.config.js",
-    "next.config.js"
+    "jest.config.mjs",
+    "next.config.js",
+    "jest.setup.js"
   ],
   "overrides": [
     {

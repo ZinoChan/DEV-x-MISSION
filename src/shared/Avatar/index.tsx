@@ -8,36 +8,27 @@ type Props = {
 };
 
 export const Avatar = ({ src, alt, size }: Props) => {
-  if (size == 'sm')
-    return (
-      <>
-        {src != null ? (
-          <Image
-            src={src}
-            width={32}
-            height={32}
-            className='rounded-full'
-            alt={alt != null ? alt : 'user'}
-          />
-        ) : (
-          <div className='h-8 w-8 rounded-full bg-primary-1 text-dark-1'>
-            <AiFillProfile />
-          </div>
-        )}
-      </>
-    );
+  let width = 98;
+  let height = 98;
+  if (size == 'sm') {
+    width = 32;
+    height = 32;
+  }
   return (
     <>
       {src != null ? (
         <Image
           src={src}
-          width={98}
-          height={98}
+          width={width}
+          height={height}
           className='rounded-full'
-          alt={alt != null ? alt : 'user'}
+          alt={alt ?? 'user'}
         />
       ) : (
-        <div className='h-24 w-24 rounded-full bg-primary-1 text-dark-1'>
+        <div
+          style={{ width, height }}
+          className='rounded-full bg-primary-1 text-dark-1'
+        >
           <AiFillProfile />
         </div>
       )}

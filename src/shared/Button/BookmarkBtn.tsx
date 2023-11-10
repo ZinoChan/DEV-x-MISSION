@@ -23,12 +23,16 @@ const BookmarkBtn = ({ missionId, currRoute, missionSaved }: Props) => {
   const handleBookmark = async () => {
     const optimisticResult = missionSaved ? false : true;
     addOptimisticBookmark(optimisticResult);
-    const res = await bookmark(missionId, currRoute);
-    if (res.success) {
-      if (missionSaved) toast.success('mission unsaved');
-      else toast.success('mission saved');
+    try {
+      const res = await bookmark(missionId, currRoute);
+      if (res.success) {
+        if (missionSaved) toast.success('mission unsaved');
+        else toast.success('mission saved');
+      }
+      if (!res.success) toast.error(res.message);
+    } catch (error) {
+      toast.error('An error occured');
     }
-    if (!res.success) toast(res.message);
   };
   return (
     <button
@@ -38,9 +42,12 @@ const BookmarkBtn = ({ missionId, currRoute, missionSaved }: Props) => {
       {optimisticBookmark.sending == true ? (
         <Spinner />
       ) : optimisticBookmark.missionSaved == true ? (
-        <BsBookmarkFill className='text-xl text-primary-2' />
+        <BsBookmarkFill
+          data-testid='bookmark-fill'
+          className='text-xl text-primary-2'
+        />
       ) : (
-        <BiBookmark className='text-xl' />
+        <BiBookmark data-testid='bookmark-unfill' className='text-xl' />
       )}
     </button>
   );

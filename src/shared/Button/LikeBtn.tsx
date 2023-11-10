@@ -28,8 +28,12 @@ const LikeBtn = ({ missionId, currRoute, likeCount, userLikes }: Props) => {
       ? optimisticLike.likeCount - 1
       : optimisticLike.likeCount + 1;
     addOptimisticLike(optimisticResult);
-    const res = await like(missionId, currRoute);
-    if (!res.success) toast(res.message);
+    try {
+      const res = await like(missionId, currRoute);
+      if (!res.success) toast.error(res.message);
+    } catch (error) {
+      toast.error('An error occurred');
+    }
   };
 
   return (

@@ -26,8 +26,12 @@ const VoteBtn = ({ missionId, currRoute, voteCount, userVotes }: Props) => {
       ? optimisticVote.voteCount - 1
       : optimisticVote.voteCount + 1;
     addOptimisticVote(optimisticResult);
-    const res = await vote(missionId, currRoute);
-    if (!res.success) toast(res.message);
+    try {
+      const res = await vote(missionId, currRoute);
+      if (!res.success) toast.error(res.message);
+    } catch (error) {
+      toast.error('An error occured');
+    }
   };
 
   return (

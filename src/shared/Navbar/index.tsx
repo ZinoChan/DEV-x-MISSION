@@ -3,7 +3,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Twirl as Hamburger } from 'hamburger-react';
 import { ROUTES } from '@/utils/routes';
-import { SignInButton } from '../Button/AuthBtns';
+import { AuthButton, SignInButton, SignOutButton } from '../Button/AuthBtns';
+import { useSession } from 'next-auth/react';
 
 type Route = {
   name: string;
@@ -15,16 +16,9 @@ const routes: Route[] = [
   { name: 'Missions', path: ROUTES.MISSIONS },
 ];
 
-const AuthLinks = () => {
-  return (
-    <div className='flex flex-col space-x-0 space-y-4 md:flex-row md:space-x-3 md:space-y-0'>
-      <SignInButton />
-    </div>
-  );
-};
-
 const NavBar: React.FC = () => {
   const [isOpen, setOpen] = useState(false);
+  const { status } = useSession();
 
   return (
     <nav className='relative'>
@@ -56,13 +50,34 @@ const NavBar: React.FC = () => {
                 </Link>
               </li>
             ))}
+            {status === 'authenticated' ? (
+              <>
+                <Link
+                  onClick={() => setOpen(false)}
+                  href={ROUTES.USER_PROFILE}
+                  className='block rounded py-2 pl-3 pr-4 font-medium text-dark-1 hover:underline md:hidden md:p-0 md:hover:bg-transparent'
+                >
+                  Dashboard
+                </Link>
+                <li
+                  className='block rounded py-2 pl-3 pr-4 font-medium text-dark-1 hover:underline md:hidden md:p-0 md:hover:bg-transparent'
+                  onClick={() => setOpen(false)}
+                >
+                  <SignOutButton />
+                </li>
+              </>
+            ) : (
+              <li
+                className='block rounded py-2 pl-3 pr-4 font-medium text-dark-1 hover:underline md:hidden md:p-0 md:hover:bg-transparent'
+                onClick={() => setOpen(false)}
+              >
+                <SignInButton />
+              </li>
+            )}
           </ul>
-          <div className='p-4 md:hidden'>
-            <AuthLinks />
-          </div>
         </div>
         <div className='hidden md:flex'>
-          <AuthLinks />
+          <AuthButton />
         </div>
       </div>
     </nav>

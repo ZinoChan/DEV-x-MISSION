@@ -1,5 +1,5 @@
 'use client';
-import { BiComment, BiBookmark } from 'react-icons/bi';
+import { BiComment } from 'react-icons/bi';
 import { useCommentsContext } from '@/context/comments';
 import { MissionWithComments } from '@/types/mission.types';
 import { ROUTES } from '@/utils/routes';
@@ -34,9 +34,6 @@ const ReactionBtns = ({ mission, userId }: Props) => {
         currRoute={ROUTES.MISSIONS}
         userVotes={mission.votes.some((vote) => vote.userId === userId)}
       />
-      <button className='flex items-center hover:text-primary-2'>
-        <BiBookmark className='text-xl' />
-      </button>
     </div>
   );
 };

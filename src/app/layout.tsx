@@ -5,6 +5,7 @@ import { Bebas_Neue, Inter } from 'next/font/google';
 import AuthProvider from '@/utils/AuthProvider';
 import { Toaster } from 'react-hot-toast';
 import QueryProvider from '@/utils/ReactQuery/QueryProvider';
+import ProgressProvider from '@/shared/Progress';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-body' });
 const bebas = Bebas_Neue({
@@ -29,7 +30,9 @@ export default function RootLayout({
         <QueryProvider>
           <body className={`bg-light-1 ${inter.variable} ${bebas.variable}`}>
             <NavBar />
-            <main>{children}</main>
+            <ProgressProvider>
+              <main>{children}</main>
+            </ProgressProvider>
             <Toaster />
           </body>
         </QueryProvider>

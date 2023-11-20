@@ -1,9 +1,10 @@
 import React from 'react';
-import VoteBtn from '@/shared/Button/VoteBtn';
+import VoteBtn from '../VoteBtn';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vote } from '@/actions/vote.action';
 import toast from 'react-hot-toast';
+
 jest.mock('@/actions/vote.action.ts', () => ({
   vote: jest.fn(),
 }));

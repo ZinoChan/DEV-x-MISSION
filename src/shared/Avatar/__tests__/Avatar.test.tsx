@@ -1,5 +1,5 @@
-import { Avatar } from '@/shared/Avatar';
 import { render, screen } from '@testing-library/react';
+import Avatar from '..';
 
 describe('Avatar component', () => {
   it('should render a small avatar with the provided src and alt', () => {
@@ -18,5 +18,13 @@ describe('Avatar component', () => {
 
     const avatarAlt = screen.getAllByAltText('user');
     expect(avatarAlt[0]).toBeInTheDocument();
+  });
+  it('should render a small avatar with the user placeholder', () => {
+    const src = null;
+
+    render(<Avatar src={src} size='sm' />);
+
+    const avatarImg = screen.getAllByTestId('avatar-placeholder');
+    expect(avatarImg[0]).toBeInTheDocument();
   });
 });

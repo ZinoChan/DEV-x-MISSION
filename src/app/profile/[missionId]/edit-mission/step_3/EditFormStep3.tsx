@@ -10,7 +10,7 @@ import Mission_Step_3 from '@/shared/Forms/Mission_Step_3';
 import { useRouter } from 'next/navigation';
 import { Mission } from '@prisma/client';
 import { useMutation } from '@tanstack/react-query';
-import { httpRequest } from '@/utils/HttpRequest';
+import { httpClient } from '@/services/httpClient';
 import { MissionRes } from '@/types/mission.types';
 import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 import toast from 'react-hot-toast';
@@ -50,7 +50,7 @@ const EditFormStep3 = ({ mission }: Props) => {
 
   const mutation = useMutation({
     mutationFn: (updateMission: unknown) => {
-      return httpRequest<MissionRes>(
+      return httpClient<MissionRes>(
         'put',
         `${USER_ENDPOINT}/missions/${mission.id}`,
         updateMission

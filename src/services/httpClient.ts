@@ -1,7 +1,7 @@
 import { HTTP_STATUS } from '@/constants/httpStatus';
 import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 
-export const httpRequest = <T>(
+export const httpClient = <T>(
   method: 'get' | 'post' | 'put' | 'delete',
   url: string,
   data?: unknown,

@@ -1,5 +1,5 @@
 import { HTTP_STATUS } from '@/constants/httpStatus';
-import { authOptions } from '@/utils/AuthOptions';
+import { authOptions } from '@/services/AuthOptions';
 import { handleErrMsg } from '@/utils/ErrHandling/HandleErr';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';

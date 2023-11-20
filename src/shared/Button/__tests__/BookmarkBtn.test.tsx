@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { bookmark } from '@/actions/bookmark.action';
 import toast from 'react-hot-toast';
-import BookmarkBtn from '@/shared/Button/BookmarkBtn';
+import BookmarkBtn from '../BookmarkBtn';
 jest.mock('@/actions/bookmark.action.ts', () => ({
   bookmark: jest.fn(),
 }));

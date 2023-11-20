@@ -3,7 +3,7 @@ import { ROUTES } from '@/utils/routes';
 import { BiGroup, BiHeart, BiSolidUpvote, BiTask } from 'react-icons/bi';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { authOptions } from '@/utils/AuthOptions';
+import { authOptions } from '@/services/AuthOptions';
 
 function mapStats(
   likes: number | undefined,

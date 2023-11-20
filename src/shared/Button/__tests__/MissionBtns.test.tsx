@@ -1,4 +1,4 @@
-import { DraftBtn, SubmitBtn } from '@/shared/Button/MissionBtns';
+import { DraftBtn, SubmitBtn } from '../MissionBtns';
 import { render, screen } from '@testing-library/react';
 
 describe('mission buttons', () => {

@@ -1,5 +1,5 @@
 import { deleteComment } from '@/actions/comment.action';
-import { Avatar } from '@/shared/Avatar';
+import Avatar from '@/shared/Avatar';
 import { UserComment } from '@/types/mission.types';
 import { TrashCan } from '@carbon/icons-react';
 import toast from 'react-hot-toast';

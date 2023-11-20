@@ -1,4 +1,4 @@
-import useClickOutside from '@/hooks/useClickOutside';
+import useClickOutside from '@/utils/hooks/useClickOutside';
 import { renderHook } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 

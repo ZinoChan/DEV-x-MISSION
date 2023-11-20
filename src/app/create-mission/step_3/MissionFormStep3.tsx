@@ -1,7 +1,7 @@
 'use client';
 import AddLink from '@/components/missions/AddLink';
 import { communityLinks } from '@/data';
-import BackBtn from '@/shared/BackBtn';
+import BackBtn from '@/shared/Button/BackBtn';
 import { ROUTES } from '@/utils/routes';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -18,7 +18,7 @@ import { useMutation } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import LoadingOverlay from '@/shared/LoadingOverlay';
 import { DraftBtn, SubmitBtn } from '@/shared/Button/MissionBtns';
-import { httpRequest } from '@/utils/HttpRequest';
+import { httpClient } from '@/services/httpClient';
 import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 
 const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
@@ -41,7 +41,7 @@ const MissionFormStep3 = ({ missionId }: { missionId: string }) => {
 
   const mutation = useMutation({
     mutationFn: (updateMission: unknown) => {
-      return httpRequest<MissionRes>(
+      return httpClient<MissionRes>(
         'put',
         `${USER_ENDPOINT}/missions/${missionId}`,
         updateMission

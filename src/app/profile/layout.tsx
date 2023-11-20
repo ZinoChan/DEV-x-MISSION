@@ -1,6 +1,6 @@
 'use client';
 import { profileLinks } from '@/data';
-import { Avatar } from '@/shared/Avatar';
+import Avatar from '@/shared/Avatar';
 import Container from '@/shared/Container';
 // import { ROUTES } from '@/utils/routes';
 import { useSession } from 'next-auth/react';

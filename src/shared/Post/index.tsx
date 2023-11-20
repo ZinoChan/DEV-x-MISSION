@@ -3,7 +3,7 @@ import EditBtns from '@/components/profile/EditBtns';
 import { MissionWithComments } from '@/types/mission.types';
 import Markdown from 'react-markdown';
 import { LevelTag, StatusTag } from './Tags';
-import { Avatar } from '@/shared/Avatar';
+import Avatar from '@/shared/Avatar';
 
 type Props = {
   reactionBtns?: boolean;

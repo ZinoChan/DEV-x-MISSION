@@ -141,7 +141,19 @@ export const xprisma = prisma.$extends({
             userId,
           },
           include: {
-            mission: true,
+            mission: {
+              include: {
+                user: {
+                  select: {
+                    name: true,
+                    image: true,
+                    id: true,
+                  },
+                },
+                likes: true,
+                votes: true,
+              },
+            },
           },
         });
       },

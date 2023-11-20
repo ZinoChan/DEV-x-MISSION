@@ -1,10 +1,10 @@
 import { xprisma } from '@/lib/prismaExtentions';
-import SavedMissionCard from './components/SavedMissionCard';
 import Container from '@/shared/Container';
 import { ROUTES } from '@/utils/routes';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import { authOptions } from '@/utils/AuthOptions';
+import { authOptions } from '@/services/AuthOptions';
+import MissionCard from '@/shared/MissionCard';
 
 export default async function SavedMissions() {
   const session = await getServerSession(authOptions);
@@ -23,7 +23,7 @@ export default async function SavedMissions() {
         <div className='mt-10 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:gap-10'>
           {missions.length > 0 ? (
             missions.map((el) => (
-              <SavedMissionCard key={el.id} mission={el.mission} />
+              <MissionCard key={el.id} mission={el.mission} userId={user.id} />
             ))
           ) : (
             <div>no mission found</div>

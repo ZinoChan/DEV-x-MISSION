@@ -2,7 +2,7 @@
 import { HTTP_STATUS } from '@/constants/httpStatus';
 import { prisma } from '@/lib/prisma';
 import { xprisma } from '@/lib/prismaExtentions';
-import { authOptions } from '@/utils/AuthOptions';
+import { authOptions } from '@/services/AuthOptions';
 import { handleErrMsg } from '@/utils/ErrHandling/HandleErr';
 import { HttpException } from '@/utils/ErrHandling/HttpException';
 import { getServerSession } from 'next-auth';

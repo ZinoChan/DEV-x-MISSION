@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { Mission } from '@prisma/client';
 import { useMutation } from '@tanstack/react-query';
-import { httpRequest } from '@/utils/HttpRequest';
+import { httpClient } from '@/services/httpClient';
 import { MissionRes } from '@/types/mission.types';
 import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 import toast from 'react-hot-toast';
@@ -52,7 +52,7 @@ const EditFormStep2 = ({ mission }: Props) => {
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: (updateMission: MutationData) => {
-      return httpRequest<MissionRes>(
+      return httpClient<MissionRes>(
         'put',
         `${USER_ENDPOINT}/missions/${mission.id}`,
         updateMission

@@ -1,5 +1,5 @@
 import React from 'react';
-import LikeBtn from '@/shared/Button/LikeBtn';
+import LikeBtn from '../LikeBtn';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { like } from '@/actions/likes.action';

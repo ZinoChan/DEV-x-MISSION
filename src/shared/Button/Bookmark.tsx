@@ -1,7 +1,5 @@
 import { prisma } from '@/lib/prisma';
 import BookmarkBtn from './BookmarkBtn';
-import { authOptions } from '@/utils/AuthOptions';
-authOptions;
 
 type Props = {
   missionId: string;

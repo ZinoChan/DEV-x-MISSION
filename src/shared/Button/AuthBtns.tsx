@@ -4,8 +4,8 @@ import { ROUTES } from '@/utils/routes';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useState, useRef } from 'react';
-import { Avatar } from '../Avatar';
-import useClickOutside from '../../hooks/useClickOutside';
+import Avatar from '../Avatar';
+import useClickOutside from '@/utils/hooks/useClickOutside';
 
 export function AuthButton() {
   const { data: session, status } = useSession();

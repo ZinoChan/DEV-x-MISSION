@@ -1,4 +1,4 @@
-import CardLoader from '@/shared/Loader/CardLoader';
+import MissionCardLoader from '@/shared/Loaders/MissionCardLoader';
 import Container from '@/shared/Container';
 
 const laoding = () => {
@@ -11,7 +11,7 @@ const laoding = () => {
         </div>
         <div className='mt-10 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 lg:gap-6 xl:gap-10'>
           {[0, 1, 2, 3, 4, 5].map((el) => (
-            <CardLoader key={`el-${el}`} />
+            <MissionCardLoader key={`el-${el}`} />
           ))}
         </div>
       </Container>

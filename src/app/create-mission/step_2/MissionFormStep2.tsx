@@ -1,7 +1,7 @@
 'use client';
 import PreviewMd from '@/components/missions/PreviewMd';
 import { initialValues_2 } from '@/data';
-import BackBtn from '@/shared/BackBtn';
+import BackBtn from '@/shared/Button/BackBtn';
 import Mission_Step_2 from '@/shared/Forms/Mission_Step_2';
 import { MissionRes, Step_2_FormValues } from '@/types/mission.types';
 import { ROUTES } from '@/utils/routes';
@@ -14,7 +14,7 @@ import { Mission } from '@prisma/client';
 import { useMutation } from '@tanstack/react-query';
 import { getErrorMessage } from '@/utils/ErrHandling/GetErrMsg';
 import LoadingOverlay from '@/shared/LoadingOverlay';
-import { httpRequest } from '@/utils/HttpRequest';
+import { httpClient } from '@/services/httpClient';
 import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 import { DraftBtn, SubmitBtn } from '@/shared/Button/MissionBtns';
 import toast from 'react-hot-toast';
@@ -44,7 +44,7 @@ const MissionFormStep2 = ({ mission }: { mission: Mission }) => {
 
   const mutation = useMutation({
     mutationFn: (updateMission: MutationData) => {
-      return httpRequest<MissionRes>(
+      return httpClient<MissionRes>(
         'put',
         `${USER_ENDPOINT}/missions/${mission.id}`,
         updateMission

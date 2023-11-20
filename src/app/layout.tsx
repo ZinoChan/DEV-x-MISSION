@@ -2,7 +2,7 @@ import NavBar from '@/shared/Navbar';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Bebas_Neue, Inter } from 'next/font/google';
-import AuthProvider from '@/utils/AuthProvider';
+import AuthProvider from '@/shared/AuthProvider';
 import { Toaster } from 'react-hot-toast';
 import QueryProvider from '@/utils/ReactQuery/QueryProvider';
 import ProgressProvider from '@/shared/Progress';

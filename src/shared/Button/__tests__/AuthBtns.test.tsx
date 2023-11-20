@@ -1,9 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import {
-  AuthButton,
-  SignInButton,
-  SignOutButton,
-} from '@/shared/Button/AuthBtns';
+import { AuthButton, SignInButton, SignOutButton } from '../AuthBtns';
 import { signIn, useSession } from 'next-auth/react';
 import userEvent from '@testing-library/user-event';
 jest.mock('next-auth/react');

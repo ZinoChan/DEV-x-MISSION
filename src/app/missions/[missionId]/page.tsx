@@ -1,4 +1,4 @@
-import BackBtn from '@/shared/BackBtn';
+import BackBtn from '@/shared/Button/BackBtn';
 import { ROUTES } from '@/utils/routes';
 import { AiOutlinePlus } from 'react-icons/ai';
 import ReactionBtns from '@/components/missionDetails/ReactionBtns';
@@ -6,10 +6,10 @@ import CommentsList from '@/components/missionDetails/CommentsList';
 import { CommentsContextProvider } from '@/context/comments';
 import Post from '@/shared/Post';
 import { xprisma } from '@/lib/prismaExtentions';
-import { Avatar } from '@/shared/Avatar';
+import Avatar from '@/shared/Avatar';
 import CommunityLinksList from '@/components/missionDetails/CommunityLinksList';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/utils/AuthOptions';
+import { authOptions } from '@/services/AuthOptions';
 
 export default async function MissionDetail({
   params,

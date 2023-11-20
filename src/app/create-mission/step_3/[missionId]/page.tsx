@@ -1,4 +1,4 @@
-import { authOptions } from '@/utils/AuthOptions';
+import { authOptions } from '@/services/AuthOptions';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import MissionFormStep3 from '../MissionFormStep3';

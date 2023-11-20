@@ -1,13 +1,13 @@
 import MissionHeader from '@/components/missions/MissionHeader';
 import { xprisma } from '@/lib/prismaExtentions';
-import MissionCard from '@/shared/Card';
+import MissionCard from '@/shared/MissionCard';
 import Container from '@/shared/Container';
 import {
   createMissionFilters,
   createOrderFilters,
 } from '@/helpers/filterMission';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/utils/AuthOptions';
+import { authOptions } from '@/services/AuthOptions';
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };

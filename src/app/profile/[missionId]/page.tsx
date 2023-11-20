@@ -1,6 +1,6 @@
 import { xprisma } from '@/lib/prismaExtentions';
 import Post from '@/shared/Post';
-import { authOptions } from '@/utils/AuthOptions';
+import { authOptions } from '@/services/AuthOptions';
 import { ROUTES } from '@/utils/routes';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';

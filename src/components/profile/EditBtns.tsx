@@ -2,7 +2,7 @@ import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 import getQueryClient from '@/lib/getQueryClient';
 import LoadingOverlay from '@/shared/LoadingOverlay';
 import { MissionRes } from '@/types/mission.types';
-import { httpRequest } from '@/utils/HttpRequest';
+import { httpClient } from '@/services/httpClient';
 import { ROUTES } from '@/utils/routes';
 import { useMutation } from '@tanstack/react-query';
 import Link from 'next/link';
@@ -17,7 +17,7 @@ type Props = {
 const EditBtns = ({ missionId, setFilterId }: Props) => {
   const mutation = useMutation({
     mutationFn: (missionId: string) => {
-      return httpRequest<MissionRes>(
+      return httpClient<MissionRes>(
         'delete',
         `${USER_ENDPOINT}/missions/${missionId}`
       );

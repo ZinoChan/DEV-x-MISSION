@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { TUserMission, UserMissionRes } from '@/types/mission.types';
 import { filterMissions } from '@/helpers/filterMission';
 import { useQuery } from '@tanstack/react-query';
-import { httpRequest } from '@/utils/HttpRequest';
+import { httpClient } from '@/services/httpClient';
 import { USER_ENDPOINT } from '@/constants/apiEndpoints';
 import LoadingOverlay from '@/shared/LoadingOverlay';
 
@@ -26,7 +26,7 @@ const MissionList = () => {
   const { isLoading, isError, data } = useQuery({
     queryKey: ['userMissions'],
     queryFn: async () => {
-      const data = await httpRequest<UserMissionRes>(
+      const data = await httpClient<UserMissionRes>(
         'get',
         `${USER_ENDPOINT}/missions`
       );

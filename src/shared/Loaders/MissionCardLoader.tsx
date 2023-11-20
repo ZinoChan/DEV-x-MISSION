@@ -1,4 +1,4 @@
-export default function CardLoader() {
+export default function MissionCardLoader() {
   return (
     <div
       role='status'

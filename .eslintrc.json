@@ -7,7 +7,9 @@
     "prettier",
     "plugin:@tanstack/eslint-plugin-query/recommended",
     "plugin:testing-library/react",
-    "plugin:jest-dom/recommended"
+    "plugin:jest-dom/recommended",
+    "plugin:cypress/recommended"
+
   ],
   "parserOptions": {
     "project": "./tsconfig.json"
@@ -31,7 +33,8 @@
     "tailwind.config.js",
     "jest.config.mjs",
     "next.config.js",
-    "jest.setup.js"
+    "jest.setup.js",
+    "cypress"
   ],
   "overrides": [
     {

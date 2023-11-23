@@ -6,7 +6,7 @@ const BackBtn = ({ link }: { link: string }) => {
       <span className='rounded bg-primary-1 p-0.5 text-dark-1'>
         <HiMiniChevronDoubleLeft />
       </span>
-      <span className='text-sm font-bold'>Back</span>
+      <h6 className='font-body text-sm font-bold'>Back</h6>
     </Link>
   );
 };

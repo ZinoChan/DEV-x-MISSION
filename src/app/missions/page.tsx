@@ -2,22 +2,16 @@ import MissionHeader from '@/components/missions/MissionHeader';
 import { xprisma } from '@/lib/prismaExtentions';
 import MissionCard from '@/shared/MissionCard';
 import Container from '@/shared/Container';
-import {
-  createMissionFilters,
-  createOrderFilters,
-} from '@/helpers/filterMission';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/services/AuthOptions';
+import { getFilteredMissions } from '@/utils/functions/getFilteredMissions';
 
 type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
 export default async function Missions({ searchParams }: Props) {
-  const missions = await xprisma.mission.getMissions(
-    createMissionFilters(searchParams),
-    createOrderFilters(searchParams)
-  );
+  const missions = await getFilteredMissions(searchParams);
   const session = await getServerSession(authOptions);
 
   const currentUserEmail = session?.user?.email;
